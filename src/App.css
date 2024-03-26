@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.banner {
+  background-image: url("C:/Users/Harshill/Desktop/Projects/ecommerce/src/assets/images/banner.jpg");
+}
+
+.category img {
+  height: 350px;
+  width: 100%;
+}
