@@ -7,6 +7,7 @@ import cc from '../assets/images/cc.webp'
 import sareee from '../assets/images/sareee.avif'
 import { FaSearch } from "react-icons/fa";
 import { Link } from 'react-router-dom'
+import Products from '../components/Products';
 const Home = () => {
     return (
         <div>
@@ -24,7 +25,7 @@ const Home = () => {
                 </div>
             </div>
             <div className='container py-16'>
-                <div className='w-10/12 grid grid-cols-3 gap-6 mx-auto justify-center'>
+                <div className='w-10/12 grid lg:grid-cols-3 grid-cols-1 gap-6 mx-auto justify-center'>
                     <div className='border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5'>
                         <FaShippingFast className='w-12 h-12 object-contain' />
                         <div>
@@ -61,7 +62,7 @@ const Home = () => {
                         <button className='bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition'>Search</button>
                     </div>
                 </div>
-                <div className='grid grid-cols-3 gap-3 category'>
+                <div className='grid lg:grid-cols-3 grid-cols-1 gap-3 category'>
                     <div className='relative col rounded-sm overflow-hidden group'>
                         <img src={kurti1} alt='Kurti' />
                         <Link to='/' className='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center text-xl text-white font-medium group-hover:bg-opacity-60 transition'>Kurti</Link>
@@ -76,6 +77,7 @@ const Home = () => {
                     </div>
                 </div>
             </div >
+            <Products />
         </div>
     )
 }

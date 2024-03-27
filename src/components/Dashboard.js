@@ -9,8 +9,8 @@ import traditional from '../assets/images/chaniya-choli.webp'
 import kurti from '../assets/images/kurti.jpg'
 import saree from '../assets/images/saree.avif'
 import skirt from '../assets/images/skirt.jpg'
-
 import ResponsiveNavBar from './ResponsiveNavBar';
+import Breadcrumb from './Breadcrumb';
 
 const Dashboard = () => {
     const [responsivenavbar, setResponsiveNavbar] = useState(false);
@@ -92,7 +92,7 @@ const Dashboard = () => {
                     <div className='flex items-center justify-between flex-grow pl-12'>
                         <div className='flex items-center space-x-6'>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>Home</Link>
-                            <Link to="/products" className='text-gray-200 hover:text-white transition'>Shop</Link>
+                            <Link to="/shop" className='text-gray-200 hover:text-white transition'>Shop</Link>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>About Us</Link>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>Contact Us</Link>
                         </div>
@@ -100,6 +100,9 @@ const Dashboard = () => {
                     </div>
                 </div>
             </nav>
+            <div className="container">
+                <div className='text-gray-600 font-medium'><Breadcrumb /></div>
+            </div>
             <Outlet />
         </>
     )
