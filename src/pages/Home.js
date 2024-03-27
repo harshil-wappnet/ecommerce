@@ -77,6 +77,9 @@ const Home = () => {
                     </div>
                 </div>
             </div >
+            <div className='container'>
+                <h2 className='text-2xl font-medium text-gray-800 uppercase mb-6'>Top New Arrivals</h2>
+            </div>
             <Products />
         </div>
     )

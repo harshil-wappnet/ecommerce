@@ -53,7 +53,6 @@ const ProductCard = ({ imageSrc, title, price, discountPrice }) => {
 const Products = () => {
     return (
         <div className='container pb-16'>
-            <h2 className='text-2xl font-medium text-gray-800 uppercase mb-6'>Top New Arrivals</h2>
             <div className='grid grid-cols-4 gap-6'>
                 <ProductCard
                     imageSrc={dress}
