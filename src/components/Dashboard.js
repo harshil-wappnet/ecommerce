@@ -17,15 +17,13 @@ import kurti1 from '../assets/images/kurti1.webp';
 import cc from '../assets/images/cc.webp'
 import sareee from '../assets/images/sareee.avif'
 import ResponsiveNavBar from './ResponsiveNavBar';
+
 const Dashboard = () => {
     const [responsivenavbar, setResponsiveNavbar] = useState(false);
 
-    const showResponsiveNavbar = () => {
-        setResponsiveNavbar(!responsivenavbar);
-    }
     return (
         <>
-            <header className='py-4 shadow-sm bg-white'>
+            <header className='py-4 shadow-sm lg:bg-white `responsivenavbar ? bg-gray-900 :`'>
                 <div className='container flex items-center justify-between'>
                     <Link to="/">
                         <img src={logo} alt="Logo" className='w-32' />
@@ -63,11 +61,15 @@ const Dashboard = () => {
                             </div>
                         </Link>
 
-                        <button onClick={showResponsiveNavbar}><GiHamburgerMenu className='lg:hidden items-end' /></button>
-                        {responsivenavbar ? (<ResponsiveNavBar />) : null}
+                        <button onClick={() => setResponsiveNavbar(!responsivenavbar)} aria-controls="mobile-menu" aria-expanded="false"><GiHamburgerMenu className='lg:hidden items-end `responsivenavbar ? text-white : `' /></button>
+
                     </div>
                 </div>
             </header>
+            {responsivenavbar && (<div id="mobile-menu" className='bg-gray-900'>
+                <ResponsiveNavBar />
+            </div>)}
+            {/* <Header /> */}
             <nav className='bg-gray-800 hidden lg:block'>
                 <div className='container flex'>
                     <div className='px-8 py-4 bg-primary flex items-center cursor-pointer relative group'>
@@ -97,7 +99,7 @@ const Dashboard = () => {
                     <div className='flex items-center justify-between flex-grow pl-12'>
                         <div className='flex items-center space-x-6'>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>Home</Link>
-                            <Link to="/" className='text-gray-200 hover:text-white transition'>Shop</Link>
+                            <Link to="/products" className='text-gray-200 hover:text-white transition'>Shop</Link>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>About Us</Link>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>Contact Us</Link>
                         </div>
