@@ -15,8 +15,8 @@ const Breadcrumb = () => {
         case '/shop':
             elementName = 'Shop';
             break;
-        case '/about':
-            elementName = 'About Us';
+        case '/product-view':
+            elementName = 'product-view';
             break;
         // Add more cases as needed
         default:

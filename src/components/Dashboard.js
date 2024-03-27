@@ -93,7 +93,7 @@ const Dashboard = () => {
                         <div className='flex items-center space-x-6'>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>Home</Link>
                             <Link to="/shop" className='text-gray-200 hover:text-white transition'>Shop</Link>
-                            <Link to="/" className='text-gray-200 hover:text-white transition'>About Us</Link>
+                            <Link to="/product-view" className='text-gray-200 hover:text-white transition'>About Us</Link>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>Contact Us</Link>
                         </div>
                         <Link to="/" className='text-gray-200 hover:text-white transition'>Login/Register</Link>
