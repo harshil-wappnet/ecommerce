@@ -45,3 +45,16 @@
   height: 350px;
   width: 100%;
 }
+
+.cards {
+  max-width: 500px !important;
+  margin-inline: auto;
+  margin-block: 40px;
+}
+
+.add-cart-btn {
+  width: 100%;
+  max-width: 250px;
+  margin-inline: 1em 2em !important;
+  margin-top: auto !important;
+}
