@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 const Cart = () => {
+    // Retrieve cart items from the Redux store state
+    const cartItems = useSelector(state => state.products.productsAddedToCart);
+    console.log(cartItems);
+
     return (
         <div className='container grid grid-cols-12 items-start pb-16 pt-4 gap-6'>
 
@@ -47,36 +52,16 @@ const Cart = () => {
             <div className='col-span-4 border border-gray-200 p-4 rounded'>
                 <h4 className='text-gray-800 text-lg mb-4 uppercase font-medium'>Order Summary</h4>
                 <div className='space-y-2'>
-                    <div className='flex justify-between'>
-                        <div>
-                            <h5 className='text-gray-800 font-medium'>V-neck & Floral</h5>
-                            <p className='text-sm text-gray-600 '>Size: M</p>
+                    {/* Render each cart item */}
+                    {cartItems.map((item, index) => (
+                        <div key={index} className='flex justify-between'>
+                            <div>
+                                <h5 className='text-gray-800 font-medium'>{item.title}</h5>
+
+                                <p className='text-sm text-gray-600'>Size: {item.price}</p>
+                            </div>
                         </div>
-                        <p className='text-gray-600'>
-                            x3
-                        </p>
-                        <p className='text-gray-800 font-medium '>$320</p>
-                    </div>
-                    <div className='flex justify-between'>
-                        <div>
-                            <h5 className='text-gray-800 font-medium'>V-neck & Floral</h5>
-                            <p className='text-sm text-gray-600 '>Size: M</p>
-                        </div>
-                        <p className='text-gray-600'>
-                            x3
-                        </p>
-                        <p className='text-gray-800 font-medium '>$320</p>
-                    </div>
-                    <div className='flex justify-between'>
-                        <div>
-                            <h5 className='text-gray-800 font-medium'>V-neck & Floral</h5>
-                            <p className='text-sm text-gray-600 '>Size: M</p>
-                        </div>
-                        <p className='text-gray-600'>
-                            x3
-                        </p>
-                        <p className='text-gray-800 font-medium '>$320</p>
-                    </div>
+                    ))}
                 </div>
                 <div className='flex justify-between border-b border-gray-200 uppercase text-gray-800 font-medium my-3'>
                     <p>Subtotal</p>

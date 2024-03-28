@@ -11,10 +11,11 @@ import saree from '../assets/images/saree.avif'
 import skirt from '../assets/images/skirt.jpg'
 import ResponsiveNavBar from './ResponsiveNavBar';
 import Breadcrumb from './Breadcrumb';
+import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
     const [responsivenavbar, setResponsiveNavbar] = useState(false);
-
+    const cartItems = useSelector(state => state.products.productsAddedToCart);
     return (
         <>
             <header className='py-4 shadow-sm lg:bg-white `responsivenavbar ? bg-gray-900 :`'>
@@ -43,7 +44,7 @@ const Dashboard = () => {
                                 Cart
                             </div>
                             <span className='absolute -right-2 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs'>
-                                8
+                                {cartItems.length}
                             </span>
                         </Link>
                         <Link to="/account" className='hidden lg:flex text-center text-gray-700 hover:text-primary transition relative  flex-col items-center'>
