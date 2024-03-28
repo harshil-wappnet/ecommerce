@@ -1,10 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { GiHamburgerMenu } from "react-icons/gi";
-import traditional from '../assets/images/chaniya-choli.webp';
-import kurti from '../assets/images/kurti.jpg';
-import saree from '../assets/images/saree.avif';
-import skirt from '../assets/images/skirt.jpg';
 
 const ResponsiveNavBar = () => {
     return (
