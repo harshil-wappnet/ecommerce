@@ -7,6 +7,7 @@ import ProductView from './pages/ProductView';
 import Login from '../src/pages/Login'
 import Account from './components/Account';
 import Cart from './pages/Cart';
+import Wishlist from './pages/Wishlist';
 function App() {
   return (
     <div className="">
@@ -16,6 +17,7 @@ function App() {
         <Route path='/shop' element={<Shop />} />
         <Route path='/product-view' element={<ProductView />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/account' element={<Account />} />
         <Route path='/cart' element={<Cart />} />
       </Routes>

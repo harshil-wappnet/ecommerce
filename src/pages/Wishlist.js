@@ -1,11 +1,12 @@
 import React from 'react'
-import dress from '../assets/images/dress.avif'
 import { Link } from 'react-router-dom'
+import dress from '../assets/images/dress.avif'
 import { FaRegAddressCard } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 
-const Account = () => {
+const Wishlist = () => {
     return (
-        <div className='container grid grid-cols-12 items-start gap-6 pt-4 pb-16 '>
+        <div className='container grid grid-cols-12 items-start gap-6 pt-4 pb-16'>
             <div className='col-span-3'>
                 <div className='px-4 py-3 shadow flex items-center gap-4'>
                     <div className='flex-shrink-0'>
@@ -61,7 +62,7 @@ const Account = () => {
                     </div>
 
                     <div className='space-y-1 pl-8 pt-4'>
-                        <Link to='/wishlist' className='relative hover:text-primary block font-medium capitalize transition'>
+                        <Link to='/' className='relative hover:text-primary block font-medium capitalize transition'>
                             <span className='absolute -left-8 top-1 text-base'><FaRegAddressCard /></span>
                             My WishList
                         </Link>
@@ -75,40 +76,41 @@ const Account = () => {
                     </div>
                 </div>
             </div>
-            <div className='col-span-9 grid grid-cols-3 gap-4'>
-                <div className='shadow rounded bg-white px-4 pt-6 pb-8'>
-                    <div className='flex justify-between items-center mb-4'>
-                        <h3 className='font-medium text-gray-800 text-lg'>Personal Profile</h3>
-                        <Link to='/' className='text-primary'>Edit</Link>
+            <div className='col-span-9 space-y-4'>
+                <div className='flex items-center justify-between gap-6 p-4 border border-gray-200 rounded'>
+                    <div className='w-28 flex-shrink-0'>
+                        <img src={dress} alt='' className='w-full' />
                     </div>
-                    <div className='space-y-1'>
-                        <h4 className='text-gray-700 font-medium'>Raashi Khanna</h4>
-                        <p className='text-gray-800'>raashi@mail.com</p>
-                        <p className='text-gray-800'>123 345-688</p>
+                    <div className='w-1/3'>
+                        <h2 className='text-gray-800 text-xl font-medium uppercase'>Floral Print Fit & Flare Dress with Waist Tie-Up</h2>
+                        <p className='text-gray-500 text-sm'>
+                            Availability: <span className='text-green-600'>In Stock</span>
+                        </p>
                     </div>
-                </div>
-
-                <div className='shadow rounded bg-white px-4 pt-6 pb-8'>
-                    <div className='flex justify-between items-center mb-4'>
-                        <h3 className='font-medium text-gray-800 text-lg'>Shipping Address</h3>
-                        <Link to='/' className='text-primary'>Edit</Link>
+                    <div className='text-primary text-lg font-semibold'>
+                        $320.00
                     </div>
-                    <div className='space-y-1'>
-                        <h4 className='text-gray-700 font-medium'>Raashi Khanna</h4>
-                        <p className='text-gray-800'>321, Jivraj Park, Gadhediya Circle, California</p>
-                        <p className='text-gray-800'>123 345-688</p>
+                    <Link to="/" className='px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-medium'>Add to Cart</Link>
+                    <div className='texgt-gray-600 cursor-pointer hover:text-primary'>
+                        <FaTrashAlt />
                     </div>
                 </div>
-
-                <div className='shadow rounded bg-white px-4 pt-6 pb-8'>
-                    <div className='flex justify-between items-center mb-4'>
-                        <h3 className='font-medium text-gray-800 text-lg'>Billing Address</h3>
-                        <Link to='/' className='text-primary'>Edit</Link>
+                <div className='flex items-center justify-between gap-6 p-4 border border-gray-200 rounded'>
+                    <div className='w-28 flex-shrink-0'>
+                        <img src={dress} alt='' className='w-full' />
                     </div>
-                    <div className='space-y-1'>
-                        <h4 className='text-gray-700 font-medium'>Raashi Khanna</h4>
-                        <p className='text-gray-800'>321, Jivraj Park, Gadhediya Circle, California</p>
-                        <p className='text-gray-800'>123 345-688</p>
+                    <div className='w-1/3'>
+                        <h2 className='text-gray-800 text-xl font-medium uppercase'>Floral Print Fit & Flare Dress with Waist Tie-Up</h2>
+                        <p className='text-gray-500 text-sm'>
+                            Availability: <span className='text-red-600'>Out of Stock</span>
+                        </p>
+                    </div>
+                    <div className='text-primary text-lg font-semibold'>
+                        $320.00
+                    </div>
+                    <Link to="/" className='cursor-not-allowed px-6 py-2 text-center text-sm text-white bg-red-400 border border-red-400 rounded  transition uppercase font-medium'>Add to Cart</Link>
+                    <div className='texgt-gray-600 cursor-pointer hover:text-primary'>
+                        <FaTrashAlt />
                     </div>
                 </div>
             </div>
@@ -116,4 +118,4 @@ const Account = () => {
     )
 }
 
-export default Account
+export default Wishlist
