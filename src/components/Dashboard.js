@@ -46,7 +46,7 @@ const Dashboard = () => {
                                 8
                             </span>
                         </Link>
-                        <Link to="#" className='hidden lg:flex text-center text-gray-700 hover:text-primary transition relative  flex-col items-center'>
+                        <Link to="/account" className='hidden lg:flex text-center text-gray-700 hover:text-primary transition relative  flex-col items-center'>
                             <div className='text-3xl'>
                                 <CiUser />
                             </div>
