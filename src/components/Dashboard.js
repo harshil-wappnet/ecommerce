@@ -96,7 +96,7 @@ const Dashboard = () => {
                             <Link to="/product-view" className='text-gray-200 hover:text-white transition'>About Us</Link>
                             <Link to="/" className='text-gray-200 hover:text-white transition'>Contact Us</Link>
                         </div>
-                        <Link to="/" className='text-gray-200 hover:text-white transition'>Login/Register</Link>
+                        <Link to="/login" className='text-gray-200 hover:text-white transition'>Login/Register</Link>
                     </div>
                 </div>
             </nav>
