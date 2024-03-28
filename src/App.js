@@ -6,6 +6,7 @@ import Shop from './pages/Shop';
 import ProductView from './pages/ProductView';
 import Login from '../src/pages/Login'
 import Account from './components/Account';
+import Cart from './pages/Cart';
 function App() {
   return (
     <div className="">
@@ -16,6 +17,7 @@ function App() {
         <Route path='/product-view' element={<ProductView />} />
         <Route path='/login' element={<Login />} />
         <Route path='/account' element={<Account />} />
+        <Route path='/cart' element={<Cart />} />
       </Routes>
     </div>
   );

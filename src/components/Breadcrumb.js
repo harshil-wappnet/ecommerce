@@ -24,6 +24,9 @@ const Breadcrumb = () => {
         case '/account':
             elementName = 'Account';
             break;
+        case '/cart':
+            elementName = 'Cart';
+            break;
         // Add more cases as needed
         default:
             elementName = 'Unknown Page';
