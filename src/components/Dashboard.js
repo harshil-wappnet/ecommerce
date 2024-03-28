@@ -24,7 +24,7 @@ const Dashboard = () => {
                     </Link>
 
                     <div className='flex item-center space-x-4'>
-                        <Link to="#" className='text-center text-gray-700 hover:text-primary transition relative flex-col items-center hidden lg:flex'>
+                        <Link to="/wishlist" className='text-center text-gray-700 hover:text-primary transition relative flex-col items-center hidden lg:flex'>
                             <div className='text-3xl'>
                                 <CiHeart />
                             </div>
@@ -35,7 +35,7 @@ const Dashboard = () => {
                                 8
                             </span>
                         </Link>
-                        <Link to="#" className='hidden lg:flex text-center text-gray-700 hover:text-primary transition relative flex-col items-center'>
+                        <Link to="/cart#" className='hidden lg:flex text-center text-gray-700 hover:text-primary transition relative flex-col items-center'>
                             <div className='text-3xl'>
                                 <IoBag />
                             </div>
