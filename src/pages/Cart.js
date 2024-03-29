@@ -5,7 +5,7 @@ const Cart = () => {
     // Retrieve cart items from the Redux store state
     const cartItems = useSelector(state => state.products.productsAddedToCart);
     console.log(cartItems);
-
+    const total = useSelector(state => state.products.total);
     return (
         <div className='container grid grid-cols-12 items-start pb-16 pt-4 gap-6'>
 
@@ -55,25 +55,23 @@ const Cart = () => {
                     {/* Render each cart item */}
                     {cartItems.map((item, index) => (
                         <div key={index} className='flex justify-between'>
+                            <img src={item.imageSrc} alt="img of product added to cart" className='rounded-full w-14 h-14 border border-gray-200 p-1 object-cover' />
                             <div>
                                 <h5 className='text-gray-800 font-medium'>{item.title}</h5>
-
-                                <p className='text-sm text-gray-600'>Size: {item.price}</p>
+                                <p className='text-sm text-gray-600'>Price: {item.price}</p>
+                                <p className='text-sm text-gray-600'>Quantity: {item.quantity}</p>
                             </div>
                         </div>
                     ))}
                 </div>
-                <div className='flex justify-between border-b border-gray-200 uppercase text-gray-800 font-medium my-3'>
-                    <p>Subtotal</p>
-                    <p>$320</p>
-                </div>
+
                 <div className='flex justify-between border-b border-gray-200 uppercase text-gray-800 font-medium my-3'>
                     <p>Shipping</p>
                     <p>Free</p>
                 </div>
                 <div className='flex justify-between uppercase text-gray-800 font-medium my-3'>
                     <p className='font-semibold'>Total</p>
-                    <p>$320</p>
+                    <p>${total}</p>
                 </div>
                 <div className='flex items-center mb-4 mt-2'>
                     <input id="agreement" type="checkbox" className='text-primary focus:ring-0 rounded-sm cursor-pointer w-3 h-3' />

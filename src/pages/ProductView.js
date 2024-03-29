@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import dress from '../assets/images/dress.avif';
 import dressview1 from '../assets/images/dress-view-1.avif'
 import dressview2 from '../assets/images/dress-view-2.avif'
@@ -10,22 +10,41 @@ import { TfiFacebook } from "react-icons/tfi";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import Products from '../components/Products';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../redux/ProductsSlice';
 import Productsdata from '../data/products';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/ProductsSlice';
 const ProductView = () => {
+    const [quantity, setQuantity] = useState(1);
+    const { id } = useParams(); // Get product ID from URL
     const dispatch = useDispatch();
-    const id = useSelector(state => state.products.productActive);
-    console.log(id);
-    const handleAddToCart = (product) => {
-        dispatch(addToCart({ product }));
-        alert(`Product added to cart:\nTitle: ${product.title}\nPrice: ${product.price}`);
+
+    const decrementQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    }
+
+    const incrementQuantity = () => {
+        setQuantity(quantity + 1);
+    }
+
+
+    const product = Productsdata.find(product => product.id === id);
+
+    // Check if product exists
+    if (!product) {
+        return <div>Product not found!</div>;
+    };
+    const handleAddToCart = () => {
+        dispatch(addToCart({ product, quantity }));
+        alert(`Product added to cart:\nTitle: ${product.title}\nPrice: ${product.price}\nQuantity: ${quantity}`);
     };
     return (
         <>
             <div className='container grid grid-cols-2 gap-6'>
                 <div>
-                    <img src="{Productsdata.id.imageSrc}" alt='outfit-1' className='w-full h-96' />
+                    <img src={product.imageSrc} alt='outfit-1' className='w-full h-96' />
                     <div className='grid grid-cols-5 gap-4 mt-4'>
                         <img src={dressview1} alt='' className='w-full cursor-pointer border border-primary' />
                         <img src={dressview2} alt='' className='w-full cursor-pointer border ' />
@@ -35,7 +54,7 @@ const ProductView = () => {
                     </div>
                 </div>
                 <div>
-                    <h2 className='text-3xl font-medium uppercase mb-2'>"Productsdata.id.title"</h2>
+                    <h2 className='text-3xl font-medium uppercase mb-2'>{product.title}</h2>
                     <div className='flex items-center mb-4'>
                         <div className='flex gap-1 text-sm text-yellow-400'>
                             <span><FaStar /></span>
@@ -65,8 +84,8 @@ const ProductView = () => {
                         </p>
                     </div>
                     <div className='flex items-baseline mb-1 space-x-2 mt-4'>
-                        <p className='text-2xl text-primary font-semibold'>"Productsdata.id.price"</p>
-                        <p className='text-base line-through text-gray-400'>"Productsdata.id.discountPrice"</p>
+                        <p className='text-2xl text-primary font-semibold'>{product.price}</p>
+                        <p className='text-base line-through text-gray-400'>{product.discountPrice}</p>
                     </div>
                     <p className='mt-4 text-gray-400'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
                     <div className='pt-4'>
@@ -116,16 +135,16 @@ const ProductView = () => {
                     <div className='mt-4'>
                         <h3 className='text-sm text-gray-800 uppercase mb-1'>Quantity</h3>
                         <div className='flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max'>
-                            <div className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'>-</div>
-                            <div className='h-8 w-8 text-base flex items-center justify-center'>4</div>
-                            <div className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'>+</div>
+                            <div onClick={decrementQuantity} className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'>-</div>
+                            <div className='h-8 w-8 text-base flex items-center justify-center'>{quantity}</div>
+                            <div onClick={incrementQuantity} className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'>+</div>
                         </div>
                     </div>
 
                     <div className='flex gap-3 border-b border-gray-200 pb-5 mt-6'>
-                        <Link to="/" className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition ">
+                        <button onClick={() => handleAddToCart(product)} className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition ">
                             <FaShoppingCart />Add to Cart
-                        </Link>
+                        </button>
                         <Link to="/" className="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2  hover:text-primary transition ">
                             <FaHeart />WishList
                         </Link>

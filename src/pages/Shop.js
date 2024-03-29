@@ -4,23 +4,9 @@ import { CiBoxList } from "react-icons/ci";
 import { Link } from 'react-router-dom';
 import { FaSearch, FaStar } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
-
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, productactive } from '../redux/ProductsSlice';
 import Productsdata from '../data/products'
 
 const Shop = () => {
-    const dispatch = useDispatch();
-
-    // const handleAddToCart = (product) => {
-    //     dispatch(addToCart({ product }));
-    //     alert(`Product added to cart:\nTitle: ${product.title}\nPrice: ${product.price}`);
-    // };
-    const makeProductActive = (id) => {
-        dispatch(productactive(id));
-    }
-    const id = useSelector(state => state.products.productActive);
-    console.log("idddddddd", id);
     return (
         <div className='container grid grid-cols-4 gap-6 pb-16 items-start'>
             <div className='col-span-1 bg-white px-4 pb-6 shadow rounded'>
@@ -188,7 +174,7 @@ const Shop = () => {
                                         <span className='text-xs text-gray-500'>(150)</span>
                                     </div>
                                 </div>
-                                <Link to="#" onClick={() => makeProductActive(product.id)} className='self-start w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition mt-auto'>View Product</Link>
+                                <Link to={`/product-view/${product.id}`} className='self-start w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition mt-auto'>View Product</Link>
                             </div>
                         </div>
                     ))}
