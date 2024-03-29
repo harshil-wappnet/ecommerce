@@ -8,6 +8,22 @@ import { addToWishlist } from '../redux/WishlistSlice';
 import { useDispatch } from 'react-redux';
 const Shop = () => {
     const dispatch = useDispatch();
+    const [selectedCategories, setSelectedCategories] = useState([]);
+
+    const handleCategoryChange = (e) => {
+        const { value, checked } = e.target;
+        if (checked) {
+            setSelectedCategories([...selectedCategories, value]);
+        } else {
+            setSelectedCategories(selectedCategories.filter(category => category !== value));
+        }
+    };
+
+    // Filter products based on selected categories
+    const filteredProducts = selectedCategories.length > 0 ?
+        Productsdata.filter(product => selectedCategories.includes(product.category)) :
+        Productsdata;
+
     const handleAddToWishlist = (productId) => {
         const product = Productsdata.find(product => product.id === productId);
         if (product) {
@@ -22,27 +38,27 @@ const Shop = () => {
                         <h3 className='text-xl text-gray-800 mb-3 uppercase font-medium'>Categories</h3>
                         <div className='space-y-2'>
                             <div className='flex flex-col'>
-                                <div className='flex items-center justify-between w-full'>
-                                    <input type="checkbox" id="casual" className='text-primary focus:ring-0 rounded-sm cursor-pointer' />
-                                    <label htmlFor="casual" className='text-gray-600 ml-3 cursor-pointer'>Casual</label>
-                                    <span className='ml-auto text-gray-600 text-sm'>(215)</span>
-                                </div>
-                                <div className='flex items-center justify-between w-full'>
-                                    <input type="checkbox" id="occasions" className='text-primary focus:ring-0 rounded-sm cursor-pointer' />
-                                    <label htmlFor="occasions" className='text-gray-600 ml-3 cursor-pointer'>Occasions</label>
-                                    <span className='ml-auto text-gray-600 text-sm'>(15)</span>
-                                </div>
-                                <div className='flex items-center justify-between w-full'>
-                                    <input type="checkbox" id="universal" className='text-primary focus:ring-0 rounded-sm cursor-pointer' />
-                                    <label htmlFor="universal" className='text-gray-600 ml-3 cursor-pointer'>Universal</label>
-                                    <span className='ml-auto text-gray-600 text-sm'>(2115)</span>
-                                </div>
-                                <div className='flex items-center justify-between w-full'>
-                                    <input type="checkbox" id="work" className='text-primary focus:ring-0 rounded-sm cursor-pointer' />
-                                    <label htmlFor="work" className='text-gray-600 ml-3 cursor-pointer'>Work</label>
-                                    <span className='ml-auto text-gray-600 text-sm'>(115)</span>
-                                </div>
+                                {/* Category checkboxes */}
+                                {['casual', 'occasions', 'universal', 'work'].map((category, index) => (
+                                    <div key={index} className='flex items-center justify-between w-full'>
+                                        <input
+                                            type="checkbox"
+                                            id={category}
+                                            value={category}
+                                            className='text-primary focus:ring-0 rounded-sm cursor-pointer'
+                                            onChange={handleCategoryChange}
+                                            checked={selectedCategories.includes(category)}
+                                        />
+                                        <label htmlFor={category} className='text-gray-600 ml-3 cursor-pointer'>{category}</label>
+                                        {/* You can include a count of products in each category here */}
+                                        {category === 'casual' && <span className='ml-auto text-gray-600 text-sm'>(215)</span>}
+                                        {category === 'occasions' && <span className='ml-auto text-gray-600 text-sm'>(15)</span>}
+                                        {category === 'universal' && <span className='ml-auto text-gray-600 text-sm'>(2115)</span>}
+                                        {category === 'work' && <span className='ml-auto text-gray-600 text-sm'>(115)</span>}
+                                    </div>
+                                ))}
                             </div>
+
                         </div>
                     </div>
 
@@ -143,8 +159,9 @@ const Shop = () => {
                 </div>
 
                 <div className='grid grid-cols-3 gap-6'>
-                    {Productsdata.map((product, index) => (
+                    {filteredProducts.map((product, index) => (
                         <div key={index} className='bg-white shadow rounded overflow-hidden group flex flex-col'>
+                            {/* Product details */}
                             <div className='relative flex-shrink-0'>
                                 <img src={product.imageSrc} alt='' className='w-full' />
                                 <div className='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
@@ -170,7 +187,7 @@ const Shop = () => {
                                         <span><FaStar /></span>
                                         <span><FaStar /></span>
                                         <span><FaStar /></span>
-                                        <span className='text-xs text-gray-500'>(150)</span>
+                                        {/* You can include the rating count here */}
                                     </div>
                                 </div>
                                 <Link to={`/product-view/${product.id}`} className='self-start w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition mt-auto'>View Product</Link>

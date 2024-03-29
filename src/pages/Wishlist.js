@@ -89,14 +89,17 @@ const Wishlist = () => {
                         <div className='w-1/3'>
                             <h2 className='text-gray-800 text-xl font-medium uppercase'>{item.title}</h2>
                             <p className='text-gray-500 text-sm'>
-                                Availability: <span className='text-red-600'>Out of Stock</span>
+                                Availability: <span className={item.stockStatus === 'In Stock' ? 'text-green-600' : 'text-red-600'}>{item.stockStatus}</span>
+
                             </p>
                         </div>
                         <div className='text-primary text-lg font-semibold'>
                             ${item.price}.00
                         </div>
-                        <Link to="/" className='cursor-not-allowed px-6 py-2 text-center text-sm text-white bg-red-400 border border-red-400 rounded  transition uppercase font-medium'>Add to Cart</Link>
-                        <div className='texgt-gray-600 cursor-pointer hover:text-primary' onClick={() => { dispatch(removeFromWishlist({ index })) }} >
+                        <Link to="/" className={`px-6 py-2 text-center text-sm text-white border rounded transition uppercase font-medium ${item.stockStatus === 'In Stock' ? 'bg-primary border-primary cursor-pointer hover:bg-transparent hover:text-primary' : 'bg-red-400 border-red-400 cursor-not-allowed'}`}>
+                            Add to Cart
+                        </Link>
+                        <div className='text-gray-600 cursor-pointer hover:text-primary' onClick={() => { dispatch(removeFromWishlist({ index })) }} >
                             <FaTrashAlt />
                         </div>
 

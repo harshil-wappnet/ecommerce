@@ -8,28 +8,36 @@ const Productsdata = [
     imageSrc: dress,
     title: "Floral Print Fit & Flare Dress with Waist Tie-Up",
     price: 45.00,
-    discountPrice: 55.00
+    discountPrice: 55.00,
+    stockStatus: "In Stock",
+    category: "casual",
   },
   {
     id: "1",
     imageSrc: dressback,
     title: "Micro-Print A-line Dress",
     price: 15.00,
-    discountPrice: 20.00
+    discountPrice: 20.00,
+    stockStatus: "Out of Stock",
+    category: "casual",
   },
   {
     id: "2",
     imageSrc: vneckdress,
     title: "V-Neck Fit & Flare Dress",
     price: 25.00,
-    discountPrice: 35.00
+    discountPrice: 35.00,
+    stockStatus: "In Stock",
+    category: "universal",
   },
   {
     id: "3",
     imageSrc: vneckdress1,
     title: "Solid Fit and Flare Dress",
     price: 55.00,
-    discountPrice: 75.00
+    discountPrice: 75.00,
+    stockStatus: "Out of Stock",
+    category: "work",
   }
 ]
 
