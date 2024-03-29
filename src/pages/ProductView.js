@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import dress from '../assets/images/dress.avif';
 import dressview1 from '../assets/images/dress-view-1.avif'
 import dressview2 from '../assets/images/dress-view-2.avif'
@@ -10,12 +10,56 @@ import { TfiFacebook } from "react-icons/tfi";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import Products from '../components/Products';
+import Productsdata from '../data/products';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/ProductsSlice';
+import { addToWishlist } from '../redux/WishlistSlice';
 const ProductView = () => {
+    const [quantity, setQuantity] = useState(1);
+    const [size, setSize] = useState('');
+    const [color, setColor] = useState('');
+    const { id } = useParams(); // Get product ID from URL
+    const dispatch = useDispatch();
+    const handleAddToWishlist = (productId) => {
+        const product = Productsdata.find(product => product.id === productId);
+        if (product) {
+            dispatch(addToWishlist({ product }));
+        }
+    }
+    const decrementQuantity = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    }
+
+    const incrementQuantity = () => {
+        setQuantity(quantity + 1);
+    }
+
+    const handleColorChange = (selectedColor) => {
+        setColor(selectedColor);
+    };
+
+    const handleSizeChange = (selectedSize) => {
+        setSize(selectedSize);
+    };
+
+    const product = Productsdata.find(product => product.id === id);
+
+    // Check if product exists
+    if (!product) {
+        return <div>Product not found!</div>;
+    };
+    const handleAddToCart = () => {
+        dispatch(addToCart({ product, quantity, size, color }));
+        alert(`Product added to cart:\nTitle: ${product.title}\nPrice: ${product.price}\nQuantity: ${quantity}`);
+    };
     return (
         <>
             <div className='container grid grid-cols-2 gap-6'>
                 <div>
-                    <img src={dress} alt='outfit-1' className='w-full h-96' />
+                    <img src={product.imageSrc} alt='outfit-1' className='w-full h-96' />
                     <div className='grid grid-cols-5 gap-4 mt-4'>
                         <img src={dressview1} alt='' className='w-full cursor-pointer border border-primary' />
                         <img src={dressview2} alt='' className='w-full cursor-pointer border ' />
@@ -25,7 +69,7 @@ const ProductView = () => {
                     </div>
                 </div>
                 <div>
-                    <h2 className='text-3xl font-medium uppercase mb-2'>V-Neck Fit & Flare Dress</h2>
+                    <h2 className='text-3xl font-medium uppercase mb-2'>{product.title}</h2>
                     <div className='flex items-center mb-4'>
                         <div className='flex gap-1 text-sm text-yellow-400'>
                             <span><FaStar /></span>
@@ -55,31 +99,31 @@ const ProductView = () => {
                         </p>
                     </div>
                     <div className='flex items-baseline mb-1 space-x-2 mt-4'>
-                        <p className='text-2xl text-primary font-semibold'>$45.00</p>
-                        <p className='text-base line-through text-gray-400'>$55.00</p>
+                        <p className='text-2xl text-primary font-semibold'>${product.price}.00</p>
+                        <p className='text-base line-through text-gray-400'>${product.discountPrice}.00</p>
                     </div>
                     <p className='mt-4 text-gray-400'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
                     <div className='pt-4'>
                         <h3 className='text-sm text-gray-800 uppercase mb-1'>Size</h3>
                         <div className='flex items-center gap-2'>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-xs' />
+                                <input type='radio' name='size' className='hidden' id='size-xs' onClick={() => handleSizeChange('XS')} />
                                 <label htmlFor='size-xs' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>XS</label>
                             </div>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-s' />
+                                <input type='radio' name='size' className='hidden' id='size-s' onClick={() => handleSizeChange('S')} />
                                 <label htmlFor='size-s' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>S</label>
                             </div>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-m' />
+                                <input type='radio' name='size' className='hidden' id='size-m' onClick={() => handleSizeChange('M')} />
                                 <label htmlFor='size-m' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>M</label>
                             </div>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-l' />
+                                <input type='radio' name='size' className='hidden' id='size-l' onClick={() => handleSizeChange('L')} />
                                 <label htmlFor='size-l' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>L</label>
                             </div>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-xl' />
+                                <input type='radio' name='size' className='hidden' id='size-xl' onClick={() => handleSizeChange('XL')} />
                                 <label htmlFor='size-xl' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>XL</label>
                             </div>
                         </div>
@@ -89,15 +133,15 @@ const ProductView = () => {
                         <h3 className='text-sm text-gray-800 uppercase mb-1'>Color</h3>
                         <div className='flex items-center gap-2'>
                             <div className='color-selector'>
-                                <input type='radio' name="color" className='hidden' id="color-red" />
+                                <input type='radio' name="color" className='hidden' id="color-red" onClick={() => handleColorChange('Red')} />
                                 <label className='border border-gray-200 rounded-sm h-5 w-5 cursor-pointer shadow-sm block' style={{ backgroundColor: "#fc3d57" }} htmlFor='color-red'></label>
                             </div>
                             <div className='color-selector'>
-                                <input type='radio' name="color" className='hidden' id="color-white" />
+                                <input type='radio' name="color" className='hidden' id="color-white" onClick={() => handleColorChange('White')} />
                                 <label className='border border-gray-200 rounded-sm h-5 w-5 cursor-pointer shadow-sm block' style={{ backgroundColor: "#fff" }} htmlFor='color-white'></label>
                             </div>
                             <div className='color-selector'>
-                                <input type='radio' name="color" className='hidden' id="color-black" />
+                                <input type='radio' name="color" className='hidden' id="color-black" onClick={() => handleColorChange('black')} />
                                 <label className='border border-gray-200 rounded-sm h-5 w-5 cursor-pointer shadow-sm block' style={{ backgroundColor: "#000" }} htmlFor='color-black'></label>
                             </div>
                         </div>
@@ -106,19 +150,19 @@ const ProductView = () => {
                     <div className='mt-4'>
                         <h3 className='text-sm text-gray-800 uppercase mb-1'>Quantity</h3>
                         <div className='flex border border-gray-300 text-gray-600 divide-x divide-gray-300 w-max'>
-                            <div className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'>-</div>
-                            <div className='h-8 w-8 text-base flex items-center justify-center'>4</div>
-                            <div className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'>+</div>
+                            <div onClick={decrementQuantity} className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'>-</div>
+                            <div className='h-8 w-8 text-base flex items-center justify-center'>{quantity}</div>
+                            <div onClick={incrementQuantity} className='h-8 w-8 text-xl flex items-center justify-center cursor-pointer select-none'>+</div>
                         </div>
                     </div>
 
                     <div className='flex gap-3 border-b border-gray-200 pb-5 mt-6'>
-                        <Link to="/" className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition ">
+                        <button onClick={() => handleAddToCart(product)} className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition ">
                             <FaShoppingCart />Add to Cart
-                        </Link>
-                        <Link to="/" className="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2  hover:text-primary transition ">
+                        </button>
+                        <button to="/" onClick={() => handleAddToWishlist(product.id)} className="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2  hover:text-primary transition ">
                             <FaHeart />WishList
-                        </Link>
+                        </button>
                     </div>
 
                     <div className='flex gap-3 mt-4'>

@@ -3,8 +3,12 @@ import { Link } from 'react-router-dom'
 import dress from '../assets/images/dress.avif'
 import { FaRegAddressCard } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
-
+import { useSelector } from 'react-redux';
+import { removeFromWishlist } from '../redux/WishlistSlice'
+import { useDispatch } from 'react-redux';
 const Wishlist = () => {
+    const dispatch = useDispatch();
+    const wishlistItem = useSelector(state => state.wishlists.productsAddedToWishlist);
     return (
         <div className='container grid grid-cols-12 items-start gap-6 pt-4 pb-16'>
             <div className='col-span-3'>
@@ -77,42 +81,28 @@ const Wishlist = () => {
                 </div>
             </div>
             <div className='col-span-9 space-y-4'>
-                <div className='flex items-center justify-between gap-6 p-4 border border-gray-200 rounded'>
-                    <div className='w-28 flex-shrink-0'>
-                        <img src={dress} alt='' className='w-full' />
+                {wishlistItem.map((item, index) => (
+                    <div key={index} className='flex items-center justify-between gap-6 p-4 border border-gray-200 rounded'>
+                        <div className='w-28 flex-shrink-0'>
+                            <img src={item.imageSrc} alt='' className='w-full' />
+                        </div>
+                        <div className='w-1/3'>
+                            <h2 className='text-gray-800 text-xl font-medium uppercase'>{item.title}</h2>
+                            <p className='text-gray-500 text-sm'>
+                                Availability: <span className='text-red-600'>Out of Stock</span>
+                            </p>
+                        </div>
+                        <div className='text-primary text-lg font-semibold'>
+                            ${item.price}.00
+                        </div>
+                        <Link to="/" className='cursor-not-allowed px-6 py-2 text-center text-sm text-white bg-red-400 border border-red-400 rounded  transition uppercase font-medium'>Add to Cart</Link>
+                        <div className='texgt-gray-600 cursor-pointer hover:text-primary' onClick={() => { dispatch(removeFromWishlist({ index })) }} >
+                            <FaTrashAlt />
+                        </div>
+
                     </div>
-                    <div className='w-1/3'>
-                        <h2 className='text-gray-800 text-xl font-medium uppercase'>Floral Print Fit & Flare Dress with Waist Tie-Up</h2>
-                        <p className='text-gray-500 text-sm'>
-                            Availability: <span className='text-green-600'>In Stock</span>
-                        </p>
-                    </div>
-                    <div className='text-primary text-lg font-semibold'>
-                        $320.00
-                    </div>
-                    <Link to="/" className='px-6 py-2 text-center text-sm text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-medium'>Add to Cart</Link>
-                    <div className='texgt-gray-600 cursor-pointer hover:text-primary'>
-                        <FaTrashAlt />
-                    </div>
-                </div>
-                <div className='flex items-center justify-between gap-6 p-4 border border-gray-200 rounded'>
-                    <div className='w-28 flex-shrink-0'>
-                        <img src={dress} alt='' className='w-full' />
-                    </div>
-                    <div className='w-1/3'>
-                        <h2 className='text-gray-800 text-xl font-medium uppercase'>Floral Print Fit & Flare Dress with Waist Tie-Up</h2>
-                        <p className='text-gray-500 text-sm'>
-                            Availability: <span className='text-red-600'>Out of Stock</span>
-                        </p>
-                    </div>
-                    <div className='text-primary text-lg font-semibold'>
-                        $320.00
-                    </div>
-                    <Link to="/" className='cursor-not-allowed px-6 py-2 text-center text-sm text-white bg-red-400 border border-red-400 rounded  transition uppercase font-medium'>Add to Cart</Link>
-                    <div className='texgt-gray-600 cursor-pointer hover:text-primary'>
-                        <FaTrashAlt />
-                    </div>
-                </div>
+                ))}
+
             </div>
         </div>
     )
