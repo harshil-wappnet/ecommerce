@@ -17,7 +17,8 @@ import { addToCart } from '../redux/ProductsSlice';
 import { addToWishlist } from '../redux/WishlistSlice';
 const ProductView = () => {
     const [quantity, setQuantity] = useState(1);
-    // const [color, setColor] = useState();
+    const [size, setSize] = useState('');
+    const [color, setColor] = useState('');
     const { id } = useParams(); // Get product ID from URL
     const dispatch = useDispatch();
     const handleAddToWishlist = (productId) => {
@@ -36,6 +37,13 @@ const ProductView = () => {
         setQuantity(quantity + 1);
     }
 
+    const handleColorChange = (selectedColor) => {
+        setColor(selectedColor);
+    };
+
+    const handleSizeChange = (selectedSize) => {
+        setSize(selectedSize);
+    };
 
     const product = Productsdata.find(product => product.id === id);
 
@@ -44,7 +52,7 @@ const ProductView = () => {
         return <div>Product not found!</div>;
     };
     const handleAddToCart = () => {
-        dispatch(addToCart({ product, quantity }));
+        dispatch(addToCart({ product, quantity, size, color }));
         alert(`Product added to cart:\nTitle: ${product.title}\nPrice: ${product.price}\nQuantity: ${quantity}`);
     };
     return (
@@ -99,23 +107,23 @@ const ProductView = () => {
                         <h3 className='text-sm text-gray-800 uppercase mb-1'>Size</h3>
                         <div className='flex items-center gap-2'>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-xs' />
+                                <input type='radio' name='size' className='hidden' id='size-xs' onClick={() => handleSizeChange('XS')} />
                                 <label htmlFor='size-xs' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>XS</label>
                             </div>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-s' />
+                                <input type='radio' name='size' className='hidden' id='size-s' onClick={() => handleSizeChange('S')} />
                                 <label htmlFor='size-s' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>S</label>
                             </div>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-m' />
+                                <input type='radio' name='size' className='hidden' id='size-m' onClick={() => handleSizeChange('M')} />
                                 <label htmlFor='size-m' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>M</label>
                             </div>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-l' />
+                                <input type='radio' name='size' className='hidden' id='size-l' onClick={() => handleSizeChange('L')} />
                                 <label htmlFor='size-l' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>L</label>
                             </div>
                             <div className='size-selector'>
-                                <input type='radio' name='size' className='hidden' id='size-xl' />
+                                <input type='radio' name='size' className='hidden' id='size-xl' onClick={() => handleSizeChange('XL')} />
                                 <label htmlFor='size-xl' className='text-xs border border-gray-200 rounded-sm h-6 w-6 flex items-center justify-center cursor-pointer shadow-sm text-gray-600'>XL</label>
                             </div>
                         </div>
@@ -125,15 +133,15 @@ const ProductView = () => {
                         <h3 className='text-sm text-gray-800 uppercase mb-1'>Color</h3>
                         <div className='flex items-center gap-2'>
                             <div className='color-selector'>
-                                <input type='radio' name="color" className='hidden' id="color-red" />
+                                <input type='radio' name="color" className='hidden' id="color-red" onClick={() => handleColorChange('Red')} />
                                 <label className='border border-gray-200 rounded-sm h-5 w-5 cursor-pointer shadow-sm block' style={{ backgroundColor: "#fc3d57" }} htmlFor='color-red'></label>
                             </div>
                             <div className='color-selector'>
-                                <input type='radio' name="color" className='hidden' id="color-white" />
+                                <input type='radio' name="color" className='hidden' id="color-white" onClick={() => handleColorChange('White')} />
                                 <label className='border border-gray-200 rounded-sm h-5 w-5 cursor-pointer shadow-sm block' style={{ backgroundColor: "#fff" }} htmlFor='color-white'></label>
                             </div>
                             <div className='color-selector'>
-                                <input type='radio' name="color" className='hidden' id="color-black" />
+                                <input type='radio' name="color" className='hidden' id="color-black" onClick={() => handleColorChange('black')} />
                                 <label className='border border-gray-200 rounded-sm h-5 w-5 cursor-pointer shadow-sm block' style={{ backgroundColor: "#000" }} htmlFor='color-black'></label>
                             </div>
                         </div>
