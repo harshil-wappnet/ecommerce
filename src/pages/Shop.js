@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { RiGridFill } from "react-icons/ri";
-import { CiBoxList } from "react-icons/ci";
 import { Link } from 'react-router-dom';
-import { FaSearch, FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import Productsdata from '../data/products'
-
+import { addToWishlist } from '../redux/WishlistSlice';
+import { useDispatch } from 'react-redux';
 const Shop = () => {
+    const dispatch = useDispatch();
+    const handleAddToWishlist = (productId) => {
+        const product = Productsdata.find(product => product.id === productId);
+        if (product) {
+            dispatch(addToWishlist({ product }));
+        }
+    }
     return (
         <div className='container grid grid-cols-4 gap-6 pb-16 items-start'>
             <div className='col-span-1 bg-white px-4 pb-6 shadow rounded'>
@@ -130,13 +137,8 @@ const Shop = () => {
                         <option>Price high-low</option>
                         <option>Latest Product</option>
                     </select>
-                    <div className='flex gap-2 ml-auto'>
-                        <div className='border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer'>
-                            <RiGridFill className='text-xl' />
-                        </div>
-                        <div className='border border-gray-300 w-10 h-9 flex items-center justify-center textgray-600 rounded cursor-pointer'>
-                            <CiBoxList className='text-xl' />
-                        </div>
+                    <div className='ml-auto border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer'>
+                        <RiGridFill className='text-xl' />
                     </div>
                 </div>
 
@@ -146,12 +148,9 @@ const Shop = () => {
                             <div className='relative flex-shrink-0'>
                                 <img src={product.imageSrc} alt='' className='w-full' />
                                 <div className='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
-                                    <Link to='/' className='text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition'>
-                                        <FaSearch />
-                                    </Link>
-                                    <Link to='/' className='text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition'>
+                                    <button onClick={() => handleAddToWishlist(product.id)} className='text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition'>
                                         <CiHeart />
-                                    </Link>
+                                    </button>
                                 </div>
                             </div>
                             <div className='pt-4 pb-3 px-4 flex flex-col flex-grow'>
@@ -162,8 +161,8 @@ const Shop = () => {
                                 </Link>
                                 <div className='flex justify-between items-start mb-1'>
                                     <div>
-                                        <p className='text-xl text-primary font-semibold '>{product.price}</p>
-                                        <p className='text-sm text-gray-400 line-through'>{product.discountPrice}</p>
+                                        <p className='text-xl text-primary font-semibold '>${product.price}.00</p>
+                                        <p className='text-sm text-gray-400 line-through'>${product.discountPrice}.00</p>
                                     </div>
                                     <div className='flex gap-1 text-sm text-yellow-400'>
                                         <span><FaStar /></span>

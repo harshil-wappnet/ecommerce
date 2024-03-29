@@ -14,11 +14,18 @@ import Productsdata from '../data/products';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/ProductsSlice';
+import { addToWishlist } from '../redux/WishlistSlice';
 const ProductView = () => {
     const [quantity, setQuantity] = useState(1);
+    // const [color, setColor] = useState();
     const { id } = useParams(); // Get product ID from URL
     const dispatch = useDispatch();
-
+    const handleAddToWishlist = (productId) => {
+        const product = Productsdata.find(product => product.id === productId);
+        if (product) {
+            dispatch(addToWishlist({ product }));
+        }
+    }
     const decrementQuantity = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
@@ -84,8 +91,8 @@ const ProductView = () => {
                         </p>
                     </div>
                     <div className='flex items-baseline mb-1 space-x-2 mt-4'>
-                        <p className='text-2xl text-primary font-semibold'>{product.price}</p>
-                        <p className='text-base line-through text-gray-400'>{product.discountPrice}</p>
+                        <p className='text-2xl text-primary font-semibold'>${product.price}.00</p>
+                        <p className='text-base line-through text-gray-400'>${product.discountPrice}.00</p>
                     </div>
                     <p className='mt-4 text-gray-400'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
                     <div className='pt-4'>
@@ -145,9 +152,9 @@ const ProductView = () => {
                         <button onClick={() => handleAddToCart(product)} className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition ">
                             <FaShoppingCart />Add to Cart
                         </button>
-                        <Link to="/" className="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2  hover:text-primary transition ">
+                        <button to="/" onClick={() => handleAddToWishlist(product.id)} className="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2  hover:text-primary transition ">
                             <FaHeart />WishList
-                        </Link>
+                        </button>
                     </div>
 
                     <div className='flex gap-3 mt-4'>
