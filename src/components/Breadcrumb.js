@@ -30,6 +30,9 @@ const Breadcrumb = () => {
         case '/wishlist':
             elementName = 'Wishlist';
             break;
+        case '/RazorpayPayment':
+            elementName = 'RazorpayPayment';
+            break;
         // Add more cases as needed
         default:
             elementName = 'Unknown Page';
