@@ -8,6 +8,7 @@ import Login from '../src/pages/Login'
 import Account from './components/Account';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
+// import RazorpayPayment from './components/RazorpayPayment'
 function App() {
   return (
     <div className="">
@@ -20,6 +21,7 @@ function App() {
         <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/account' element={<Account />} />
         <Route path='/cart' element={<Cart />} />
+        {/* <Route path='/RazorpayPayment' element={<RazorpayPayment />} /> */}
       </Routes>
     </div>
   );
