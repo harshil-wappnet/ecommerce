@@ -20,7 +20,7 @@ const Home = () => {
                         ipsum dolor sit amet, consectetur adipisicing elit. <br />Quasi voluptas eum repellendus quo nesciunt!
                     </p>
                     <div className='mt-12'>
-                        <Link to="/" className='bg-black border border-primary text-white mt-5 px-8 py-3 font-medium rounded-md hover:bg-white hover:text-primary'>Shop Now</Link>
+                        <Link to="/shop" className='bg-black border border-primary text-white mt-5 px-8 py-3 font-medium rounded-md hover:bg-white hover:text-primary'>Shop Now</Link>
                     </div>
                 </div>
             </div>

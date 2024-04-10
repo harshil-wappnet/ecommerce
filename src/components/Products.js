@@ -30,8 +30,8 @@ const Products = () => {
                             </Link>
                             <div className='flex justify-between items-start mb-1'>
                                 <div>
-                                    <p className='text-xl text-primary font-semibold '>{product.price}</p>
-                                    <p className='text-sm text-gray-400 line-through'>{product.discountPrice}</p>
+                                    <p className='text-xl text-primary font-semibold '>${product.price}.00</p>
+                                    <p className='text-sm text-gray-400 line-through'>${product.discountPrice}.00</p>
                                 </div>
                                 <div className='flex gap-1 text-sm text-yellow-400'>
                                     <span><FaStar /></span>
