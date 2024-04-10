@@ -1,12 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { cartTotal } from '../redux/ProductsSlice';
 import { Link } from 'react-router-dom';
-
+import { updateTransactionStatus } from '../redux/DeliveryDetailSlice';
 const OrderDetails = () => {
     const cartItems = useSelector(state => state.products.productsAddedToCart);
     const cartTotals = useSelector(cartTotal);
 
+    const dispatch = useDispatch();
     const loadScript = (src) => {
         return new Promise((resovle) => {
             const script = document.createElement("script");
@@ -44,8 +45,12 @@ const OrderDetails = () => {
                 "https://mern-blog-akky.herokuapp.com/static/media/logo.8c649bfa.png",
 
             handler: function (response) {
-                alert(response.razorpay_payment_id);
-                alert("Payment Successfully");
+                if (response.razorpay_payment_id) {
+                    dispatch(updateTransactionStatus(true));
+                }
+                else {
+                    alert("payment failed");
+                }
             },
             prefill: {
                 name: "code with akky",

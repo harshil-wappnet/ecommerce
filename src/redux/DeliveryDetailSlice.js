@@ -12,6 +12,7 @@ const initialState = {
         emailAddress: '',
     },
     formFilledStatus: false, // Initialize formFilledStatus to false
+    transactionStatus: false,
 };
 
 const deliveryDetailSlice = createSlice({
@@ -36,10 +37,14 @@ const deliveryDetailSlice = createSlice({
             state.customerDetails = { ...initialState.customerDetails };
             state.formFilledStatus = false; // Reset formFilledStatus to false
         },
+        updateTransactionStatus(state) {
+            state.transactionStatus = true;
+        },
+        resetDeliverydetails: () => initialState,
     }
 });
 
 
-export const { updateCustomerDetails, resetCustomerDetails, setFormFilledStatus } = deliveryDetailSlice.actions;
+export const { updateCustomerDetails, resetCustomerDetails, setFormFilledStatus, updateTransactionStatus, resetDeliverydetails } = deliveryDetailSlice.actions;
 
 export default deliveryDetailSlice.reducer;
