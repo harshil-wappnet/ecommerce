@@ -8,6 +8,9 @@ import Login from '../src/pages/Login'
 import Account from './components/Account';
 import Cart from './pages/Cart';
 import Wishlist from './pages/Wishlist';
+import DeliveryDetails from './components/DeliveryDetails';
+import OrderDetails from './components/OrderDetails';
+import PostOrderPage from './components/PostOrderPage';
 // import RazorpayPayment from './components/RazorpayPayment'
 function App() {
   return (
@@ -20,7 +23,12 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/wishlist' element={<Wishlist />} />
         <Route path='/account' element={<Account />} />
-        <Route path='/cart' element={<Cart />} />
+        <Route path='/cart' element={<Cart />} >
+          <Route path='checkout' element={<DeliveryDetails />} />
+          <Route path='' element={<DeliveryDetails />} />
+          <Route path='orderdetails' element={<OrderDetails />} />
+          <Route path='orderstatus' element={<PostOrderPage />} />
+        </Route>
         {/* <Route path='/RazorpayPayment' element={<RazorpayPayment />} /> */}
       </Routes>
     </div>

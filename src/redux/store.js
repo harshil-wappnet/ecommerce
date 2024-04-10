@@ -1,9 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
-import ProductsSlice from './ProductsSlice';
-import WishListSlice from './WishlistSlice';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import rootReducer from './rootReducer';
+
+const persistConfig = {
+    key: 'root',
+    storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+
 export const store = configureStore({
-    reducer: {
-        products: ProductsSlice,
-        wishlists: WishListSlice,
-    },
+    reducer: persistedReducer,
 });
+
+export const persistor = persistStore(store);

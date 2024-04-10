@@ -187,18 +187,21 @@ const ProductView = () => {
                         <p>It's really quick! We strive to deliver all our orders / products in the fastest time possible. Depending upon your address, the delivery time may vary between 2 - 9 working days. That still won't stop us from trying to get you your order faster. On each product's display page, you can enter your location's pin code to check when you can expect to receive the delivery.</p>
                     </div>
                     <table className='table-auto border-collapse w-full text-gray-600 text-sm text-left mt-6'>
-                        <tr>
-                            <th className='py-2 px-4 border border-gray-300 w-40 font-medium'>Color</th>
-                            <td className='py-2 px-4 border border-gray-300'>Black, Pruple</td>
-                        </tr>
-                        <tr>
-                            <th className='py-2 px-4 border border-gray-300 w-40 font-medium'>Material</th>
-                            <td className='py-2 px-4 border border-gray-300'>Artificial Leather</td>
-                        </tr>
-                        <tr>
-                            <th className='py-2 px-4 border border-gray-300 w-40 font-medium'>Machine Wash</th>
-                            <td className='py-2 px-4 border border-gray-300'>Yes</td>
-                        </tr>
+
+                        <tbody>
+                            <tr>
+                                <th className='py-2 px-4 border border-gray-300 w-40 font-medium'>Color</th>
+                                <td className='py-2 px-4 border border-gray-300'>Black, Pruple</td>
+                            </tr>
+                            <tr>
+                                <th className='py-2 px-4 border border-gray-300 w-40 font-medium'>Material</th>
+                                <td className='py-2 px-4 border border-gray-300'>Artificial Leather</td>
+                            </tr>
+                            <tr>
+                                <th className='py-2 px-4 border border-gray-300 w-40 font-medium'>Machine Wash</th>
+                                <td className='py-2 px-4 border border-gray-300'>Yes</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
