@@ -6,6 +6,55 @@ import { Link } from 'react-router-dom';
 const OrderDetails = () => {
     const cartItems = useSelector(state => state.products.productsAddedToCart);
     const cartTotals = useSelector(cartTotal);
+
+    const loadScript = (src) => {
+        return new Promise((resovle) => {
+            const script = document.createElement("script");
+            script.src = src;
+
+            script.onload = () => {
+                resovle(true);
+            };
+
+            script.onerror = () => {
+                resovle(false);
+            };
+
+            document.body.appendChild(script);
+        });
+    };
+
+    const displayRazorpay = async (amount) => {
+        const res = await loadScript(
+            "https://checkout.razorpay.com/v1/checkout.js"
+        );
+
+        if (!res) {
+            alert("You are offline... Failed to load Razorpay SDK");
+            return;
+        }
+
+        const options = {
+            key: "rzp_test_bYKXi5ovwdyjuq",
+            currency: "INR",
+            amount: amount * 100,
+            name: "Code with akky",
+            description: "Thanks for purchasing",
+            image:
+                "https://mern-blog-akky.herokuapp.com/static/media/logo.8c649bfa.png",
+
+            handler: function (response) {
+                alert(response.razorpay_payment_id);
+                alert("Payment Successfully");
+            },
+            prefill: {
+                name: "code with akky",
+            },
+        };
+
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+    };
     return (
         <div>
             <div className='space-y-4'>
@@ -32,6 +81,7 @@ const OrderDetails = () => {
                     <input id="agreement" type="checkbox" className='text-primary focus:ring-0 rounded-sm cursor-pointer w-3 h-3' />
                     <label htmlFor="agreement" className='text-gray-600 ml-3 cursor-pointer text-sm'>Agree to our <Link to="/" className="text-primary">terms & conditions</Link></label>
                 </div>
+                <button onClick={() => displayRazorpay(cartTotals)} className='w-full block px-4 py-3 text-center text-white font-medium bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition'>Place order</button>
             </div>
         </div>
     )

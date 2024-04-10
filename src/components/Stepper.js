@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TiTick } from "react-icons/ti";
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../redux/ProductsSlice';
@@ -11,40 +11,30 @@ const Stepper = () => {
     const steps = ["1", "2", "3"];
     const [currentStep, setCurrentStep] = useState(1);
     const [complete, setComplete] = useState(false);
-    const [step1Filled, setStep1Filled] = useState(false); // Track if step 1 form has been filled
-    const [movedToStep2, setMovedToStep2] = useState(false); // Track if user has already moved to step 2
     const cartTotals = useSelector(cartTotal);
     const dispatch = useDispatch();
-    const customerDetails = useSelector(state => state.customers.customerDetails);
-    console.log(customerDetails);
     const formFilledStatus = useSelector(state => state?.customers?.formFilledStatus);
-    console.log("cartitemmmmm", formFilledStatus)
+
+    // useEffect to update currentStep based on formFilledStatus
+    useEffect(() => {
+        if (formFilledStatus) {
+            setCurrentStep(2); // Move to step 2 if form is filled
+        } else {
+            setCurrentStep(1); // Otherwise, stay at step 1
+        }
+    }, [formFilledStatus]);
 
     // Function to handle moving to the next step
     const handleNext = () => {
-        if (currentStep === 2) {
-            // If moved to step 2 already, set current step to 3
-            setCurrentStep(3);
-            return;
+        // If not in step 3 and form is filled, move to the next step
+        if (currentStep < 3 && formFilledStatus) {
+            setCurrentStep(prevStep => prevStep + 1);
         }
-
-        // If step 1 form is filled and not moved to step 2 yet, move to step 2
-        if (step1Filled && !movedToStep2) {
-            setCurrentStep(2);
-            setMovedToStep2(true); // Set movedToStep2 to true when moving to step 2
-            return;
-        }
-
-        // If not in step 2 or 3, move to the next step
-        setCurrentStep(prevStep => prevStep + 1);
     };
 
     // Function to reset the stepper state
     const handleReset = () => {
-        // Dispatch your reset method here
         dispatch(reset());
-        setStep1Filled(false); // Reset step 1 form filled state
-        setMovedToStep2(false); // Reset movedToStep2 state
     };
 
     return (
@@ -65,14 +55,14 @@ const Stepper = () => {
             <hr className="mt-4 text-gray-700" />
             {currentStep === 1 && !complete &&
                 <div className='col-span-8 border border-red-200 p-4 rounded'>
-                    {!step1Filled && <DeliveryDetails onNext={() => setStep1Filled(true)} />}
-                    {step1Filled && <OrderDetails />}
+                    {!formFilledStatus && <DeliveryDetails />}
+                    {formFilledStatus && <OrderDetails />}
                 </div>}
             {currentStep === 2 && !complete && <div className='col-span-8 border border-red-200 p-4 rounded'><OrderDetails /></div>}
             {currentStep === 3 && !complete && <div className='col-span-8 border border-red-200 p-4 rounded'>
                 <PostOrderPage />
             </div>}
-            {currentStep === 1 && !complete && !step1Filled ? null : (
+            {currentStep === 1 && !complete && !formFilledStatus ? null : (
                 <button
                     className="btn bg-primary border border-primary rounded-md px-4 py-3 text-center text-white font-medium mt-4 ml-4"
                     onClick={() => {

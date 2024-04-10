@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import { Link } from 'react-router-dom'
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import { cartTotal } from '../redux/ProductsSlice';
 // import DeliveryDetails from '../components/DeliveryDetails';
 // import OrderDetails from '../components/OrderDetails';
@@ -30,54 +30,66 @@ const Cart = () => {
     //         setActiveStep(activeStep + 1);
     //     }
     // };
-    const loadScript = (src) => {
-        return new Promise((resovle) => {
-            const script = document.createElement("script");
-            script.src = src;
 
-            script.onload = () => {
-                resovle(true);
-            };
+    const formFilledStatus = useSelector(state => state?.customers?.formFilledStatus);
+    const [activeStep, setActiveStep] = useState(1);
 
-            script.onerror = () => {
-                resovle(false);
-            };
-
-            document.body.appendChild(script);
-        });
-    };
-
-    const displayRazorpay = async (amount) => {
-        const res = await loadScript(
-            "https://checkout.razorpay.com/v1/checkout.js"
-        );
-
-        if (!res) {
-            alert("You are offline... Failed to load Razorpay SDK");
-            return;
+    // useEffect to update activeStep based on formFilledStatus
+    useEffect(() => {
+        if (formFilledStatus) {
+            setActiveStep(2); // Move to step 2 if form is filled
+        } else {
+            setActiveStep(1); // Otherwise, stay at step 1
         }
+    }, [formFilledStatus]);
+    // const loadScript = (src) => {
+    //     return new Promise((resovle) => {
+    //         const script = document.createElement("script");
+    //         script.src = src;
 
-        const options = {
-            key: "rzp_test_bYKXi5ovwdyjuq",
-            currency: "INR",
-            amount: amount * 100,
-            name: "Code with akky",
-            description: "Thanks for purchasing",
-            image:
-                "https://mern-blog-akky.herokuapp.com/static/media/logo.8c649bfa.png",
+    //         script.onload = () => {
+    //             resovle(true);
+    //         };
 
-            handler: function (response) {
-                alert(response.razorpay_payment_id);
-                alert("Payment Successfully");
-            },
-            prefill: {
-                name: "code with akky",
-            },
-        };
+    //         script.onerror = () => {
+    //             resovle(false);
+    //         };
 
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
-    };
+    //         document.body.appendChild(script);
+    //     });
+    // };
+
+    // const displayRazorpay = async (amount) => {
+    //     const res = await loadScript(
+    //         "https://checkout.razorpay.com/v1/checkout.js"
+    //     );
+
+    //     if (!res) {
+    //         alert("You are offline... Failed to load Razorpay SDK");
+    //         return;
+    //     }
+
+    //     const options = {
+    //         key: "rzp_test_bYKXi5ovwdyjuq",
+    //         currency: "INR",
+    //         amount: amount * 100,
+    //         name: "Code with akky",
+    //         description: "Thanks for purchasing",
+    //         image:
+    //             "https://mern-blog-akky.herokuapp.com/static/media/logo.8c649bfa.png",
+
+    //         handler: function (response) {
+    //             alert(response.razorpay_payment_id);
+    //             alert("Payment Successfully");
+    //         },
+    //         prefill: {
+    //             name: "code with akky",
+    //         },
+    //     };
+
+    //     const paymentObject = new window.Razorpay(options);
+    //     paymentObject.open();
+    // };
 
     return (
         <>
@@ -94,7 +106,7 @@ const Cart = () => {
                         Next Step
                     </button> */}
                 <div className="items-center justify-center">
-                    <Stepper />
+                    <Stepper activeStep={activeStep} />
                 </div>
 
                 {/* <div className='col-span-4 border border-gray-200 p-4 rounded'>
