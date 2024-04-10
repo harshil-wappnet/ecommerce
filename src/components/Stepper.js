@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { TiTick } from "react-icons/ti";
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../redux/ProductsSlice';
@@ -17,74 +17,29 @@ const Stepper = () => {
     const dispatch = useDispatch();
     const customerDetails = useSelector(state => state.customers.customerDetails);
     console.log(customerDetails);
+    const formFilledStatus = useSelector(state => state?.customers?.formFilledStatus);
+    console.log("cartitemmmmm", formFilledStatus)
 
-    // useEffect(() => {
-    //     // Check if step 1 form has been filled when component mounts
-    //     if (customerDetails && Object.values(customerDetails).some(value => value === "")) {
-    //         setStep1Filled(false); // If any field is empty string, set step1Filled to false
-    //     } else {
-    //         setStep1Filled(true);
-    //     }
-    // }, [customerDetails]);
-
-    const loadScript = (src) => {
-        return new Promise((resolve) => {
-            const script = document.createElement("script");
-            script.src = src;
-
-            script.onload = () => {
-                resolve(true);
-            };
-
-            script.onerror = () => {
-                resolve(false);
-            };
-
-            document.body.appendChild(script);
-        });
-    };
-
-    const displayRazorpay = async (amount) => {
-        const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
-
-        if (!res) {
-            alert("You are offline... Failed to load Razorpay SDK");
+    // Function to handle moving to the next step
+    const handleNext = () => {
+        if (currentStep === 2) {
+            // If moved to step 2 already, set current step to 3
+            setCurrentStep(3);
             return;
         }
 
-        const options = {
-            key: "rzp_test_bYKXi5ovwdyjuq",
-            currency: "INR",
-            amount: amount * 100,
-            name: "Code with akky",
-            description: "Thanks for purchasing",
-            image: "https://mern-blog-akky.herokuapp.com/static/media/logo.8c649bfa.png",
-
-            handler: function (response) {
-                alert(response.razorpay_payment_id);
-                alert("Payment Successfully");
-                setComplete(true);
-            },
-            prefill: {
-                name: "code with akky",
-            },
-        };
-
-        const paymentObject = new window.Razorpay(options);
-        paymentObject.open();
-    };
-
-    const handleNext = () => {
-        if (currentStep === 2) {
-            // Execute loadScript and displayRazorpay only for step 2
-            // For other steps, proceed as usual
-            displayRazorpay(cartTotals);
+        // If step 1 form is filled and not moved to step 2 yet, move to step 2
+        if (step1Filled && !movedToStep2) {
+            setCurrentStep(2);
             setMovedToStep2(true); // Set movedToStep2 to true when moving to step 2
+            return;
         }
 
-        setCurrentStep((prev) => prev + 1);
+        // If not in step 2 or 3, move to the next step
+        setCurrentStep(prevStep => prevStep + 1);
     };
 
+    // Function to reset the stepper state
     const handleReset = () => {
         // Dispatch your reset method here
         dispatch(reset());
@@ -108,13 +63,16 @@ const Stepper = () => {
                 ))}
             </div>
             <hr className="mt-4 text-gray-700" />
-            {currentStep === 1 && !complete && !step1Filled &&
+            {currentStep === 1 && !complete &&
                 <div className='col-span-8 border border-red-200 p-4 rounded'>
-                    <DeliveryDetails />
+                    {!step1Filled && <DeliveryDetails onNext={() => setStep1Filled(true)} />}
+                    {step1Filled && <OrderDetails />}
                 </div>}
-            {currentStep === 2 && !complete && (step1Filled || movedToStep2) && <OrderDetails />}
-            {currentStep === 3 && !complete && <PostOrderPage />}
-            {!complete && (
+            {currentStep === 2 && !complete && <div className='col-span-8 border border-red-200 p-4 rounded'><OrderDetails /></div>}
+            {currentStep === 3 && !complete && <div className='col-span-8 border border-red-200 p-4 rounded'>
+                <PostOrderPage />
+            </div>}
+            {currentStep === 1 && !complete && !step1Filled ? null : (
                 <button
                     className="btn bg-primary border border-primary rounded-md px-4 py-3 text-center text-white font-medium mt-4 ml-4"
                     onClick={() => {

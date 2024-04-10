@@ -1,7 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
+import { cartTotal } from '../redux/ProductsSlice';
+import { Link } from 'react-router-dom';
+
 const OrderDetails = () => {
     const cartItems = useSelector(state => state.products.productsAddedToCart);
+    const cartTotals = useSelector(cartTotal);
     return (
         <div>
             <div className='space-y-4'>
@@ -20,6 +24,14 @@ const OrderDetails = () => {
                         </div>
                     </div>
                 ))}
+                <div className='flex justify-between uppercase text-gray-800 font-medium my-3'>
+                    <p className='font-semibold'>Total</p>
+                    <p>${cartTotals}</p>
+                </div>
+                <div className='flex items-center mb-4 mt-2'>
+                    <input id="agreement" type="checkbox" className='text-primary focus:ring-0 rounded-sm cursor-pointer w-3 h-3' />
+                    <label htmlFor="agreement" className='text-gray-600 ml-3 cursor-pointer text-sm'>Agree to our <Link to="/" className="text-primary">terms & conditions</Link></label>
+                </div>
             </div>
         </div>
     )

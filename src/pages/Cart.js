@@ -93,9 +93,9 @@ const Cart = () => {
                     >
                         Next Step
                     </button> */}
-                <diV className="items-center justify-center">
+                <div className="items-center justify-center">
                     <Stepper />
-                </diV>
+                </div>
 
                 {/* <div className='col-span-4 border border-gray-200 p-4 rounded'>
                     <h4 className='text-gray-800 text-lg mb-4 uppercase font-medium'>Order Summary</h4>

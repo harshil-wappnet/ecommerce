@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateCustomerDetails } from '../redux/DeliveryDetailSlice';
-import { initialState } from '../redux/DeliveryDetailSlice';
-const DeliveryDetails = () => {
+import { setFormFilledStatus, updateCustomerDetails } from '../redux/DeliveryDetailSlice';
+import { formFilledStatus } from "../redux/DeliveryDetailSlice"
+
+const DeliveryDetails = ({ onNext }) => {
     const dispatch = useDispatch();
     const customerDetails = useSelector(state => state.deliveryDetails);
+
     const [formDetails, setFormDetails] = useState({
         firstName: '',
         lastName: '',
@@ -23,6 +25,21 @@ const DeliveryDetails = () => {
             [name]: value
         }));
     };
+
+    const handleSubmit = () => {
+        const allFieldsFilled = Object.values(formDetails).every(field => field.trim() !== '');
+        if (allFieldsFilled) {
+            dispatch(updateCustomerDetails(formDetails));
+            dispatch(setFormFilledStatus(true));
+            onNext(); // Call the onNext function passed from the parent component
+        } else {
+            // Handle the case where not all fields are filled
+            alert('Please fill in all required fields');
+        }
+    };
+
+    // Function to determine if the submit button should be disabled
+    const isSubmitDisabled = Object.values(formDetails).some(field => field.trim() === '');
 
     return (
         <div className='container'>
@@ -62,10 +79,10 @@ const DeliveryDetails = () => {
                     <label className='text-gray-600 mb-2 block'>Email Address<span className='text-primary'>*</span></label>
                     <input type="text" className='input-box' name="emailAddress" value={formDetails.emailAddress} onChange={handleChange} />
                 </div>
-
+                <button className={`btn bg-primary border border-primary rounded-md px-4 py-3 text-center text-white font-medium mt-4 ml-4 ${isSubmitDisabled ? 'disabled' : ''}`} onClick={handleSubmit} disabled={isSubmitDisabled}>Submit</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default DeliveryDetails
+export default DeliveryDetails;

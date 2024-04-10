@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const initialState = [
-    {
+const initialState = {
+    customerDetails: {
         firstName: '',
         lastName: '',
         country: '',
@@ -10,8 +10,9 @@ export const initialState = [
         postalCode: '',
         phoneNumber: '',
         emailAddress: '',
-    }
-];
+    },
+    formFilledStatus: false, // Initialize formFilledStatus to false
+};
 
 const deliveryDetailSlice = createSlice({
     name: 'deliveryDetails',
@@ -19,15 +20,26 @@ const deliveryDetailSlice = createSlice({
     reducers: {
         updateCustomerDetails(state, action) {
             // Update customer details with payload
-            state.customerDetails = action.payload;
+            state.customerDetails = {
+                ...action.payload,
+            };
+            // Set formFilledStatus to true when customer details are updated
+        },
+        setFormFilledStatus(state, action) {
+            console.log("action", action)
+            console.log("state", state)
+            state.formFilledStatus = action.payload;
+
         },
         resetCustomerDetails(state) {
             // Reset customer details to initial state
-            state.customerDetails = initialState.customerDetails;
+            state.customerDetails = { ...initialState.customerDetails };
+            state.formFilledStatus = false; // Reset formFilledStatus to false
         },
     }
 });
 
-export const { updateCustomerDetails, resetCustomerDetails } = deliveryDetailSlice.actions;
+
+export const { updateCustomerDetails, resetCustomerDetails, setFormFilledStatus } = deliveryDetailSlice.actions;
 
 export default deliveryDetailSlice.reducer;
