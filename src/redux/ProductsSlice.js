@@ -27,11 +27,17 @@ const ProductSlice = createSlice({
                 state.productsAddedToCart.push({ ...product, quantity: quantity, total: total, size: size, color: color });
             }
         },
+        removeFromCart(state, action) {
+            const productIdToRemove = action.payload;
+
+            // Use filter to create a new array excluding the product with the specified ID
+            state.productsAddedToCart = state.productsAddedToCart.filter(product => product.id !== productIdToRemove);
+        },
         reset: () => initialState,
     },
 });
 
-export const { addToCart, reset } = ProductSlice.actions;
+export const { addToCart, reset, removeFromCart } = ProductSlice.actions;
 
 export const cartTotal = state =>
     state.products.productsAddedToCart.reduce((total, product) => total + product.total, 0);

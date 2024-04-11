@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { cartTotal } from '../redux/ProductsSlice';
 import { Link } from 'react-router-dom';
 import { updateTransactionStatus, setFormFilledStatus } from '../redux/DeliveryDetailSlice';
+import { removeFromCart } from '../redux/ProductsSlice';
 const OrderDetails = () => {
     const cartItems = useSelector(state => state.products.productsAddedToCart);
     const cartTotals = useSelector(cartTotal);
@@ -64,6 +65,10 @@ const OrderDetails = () => {
         // Dispatch action to set formFilledStatus to false
         dispatch(setFormFilledStatus(false));
     };
+
+    const removefromcart = (id) => {
+        dispatch(removeFromCart(id));
+    }
     return (
         <div>
             <div className='space-y-4'>
@@ -73,16 +78,19 @@ const OrderDetails = () => {
                     <button onClick={handleUpdateAddress} className='block px-4 py-3 text-center text-white font-medium bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition'>Update Billing Address</button>
                 </div>
                 {cartItems.map((item, index) => (
-                    <div key={index} className='flex items-center gap-6 p-4 border border-gray-200 rounded'>
-                        <div className='w-28 flex-shrink-0'>
-                            <img src={item.imageSrc} alt='' className='w-full' />
+                    <div key={index} className='flex items-center gap-6 p-4 border border-gray-200 rounded justify-between'>
+                        <div className='flex flex-row gap-x-10'>
+                            <div className='w-28 flex-shrink-0'>
+                                <img src={item.imageSrc} alt='' className='w-full' />
+                            </div>
+                            <div>
+                                <h5 className='text-gray-800 font-medium'>{item.title.length > 30 ? `${item.title.substring(0, 24)}...` : item.title}</h5>
+                                <p className='text-sm text-gray-600'>Price: {item.price}</p>
+                                <p className='text-sm text-gray-600'>Quantity: {item.quantity}</p>
+                                <p className='text-sm text-gray-600'>SubTotal: {item.total}</p>
+                            </div>
                         </div>
-                        <div>
-                            <h5 className='text-gray-800 font-medium'>{item.title.length > 30 ? `${item.title.substring(0, 24)}...` : item.title}</h5>
-                            <p className='text-sm text-gray-600'>Price: {item.price}</p>
-                            <p className='text-sm text-gray-600'>Quantity: {item.quantity}</p>
-                            <p className='text-sm text-gray-600'>SubTotal: {item.total}</p>
-                        </div>
+                        <button onClick={() => removefromcart(item.id)} className='block items-start px-4 py-3 text-center text-white font-medium bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition'>Remove from Cart</button>
                     </div>
                 ))}
                 <div className='flex justify-between uppercase text-gray-800 font-medium my-3'>
