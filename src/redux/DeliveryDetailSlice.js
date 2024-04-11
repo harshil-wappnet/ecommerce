@@ -27,8 +27,6 @@ const deliveryDetailSlice = createSlice({
             // Set formFilledStatus to true when customer details are updated
         },
         setFormFilledStatus(state, action) {
-            console.log("action", action)
-            console.log("state", state)
             state.formFilledStatus = action.payload;
 
         },
@@ -40,11 +38,17 @@ const deliveryDetailSlice = createSlice({
         updateTransactionStatus(state) {
             state.transactionStatus = true;
         },
+        updateAddressField(state, action) {
+            state.customerDetails =
+            {
+                ...state.customerDetails, address: action.payload,
+            }
+        },
         resetDeliverydetails: () => initialState,
     }
 });
 
 
-export const { updateCustomerDetails, resetCustomerDetails, setFormFilledStatus, updateTransactionStatus, resetDeliverydetails } = deliveryDetailSlice.actions;
+export const { updateCustomerDetails, resetCustomerDetails, setFormFilledStatus, updateTransactionStatus, resetDeliverydetails, updateAddressField } = deliveryDetailSlice.actions;
 
 export default deliveryDetailSlice.reducer;

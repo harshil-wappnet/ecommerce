@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 const Wishlist = () => {
     const dispatch = useDispatch();
     const wishlistItem = useSelector(state => state.wishlists.productsAddedToWishlist);
+    const isWishlistEmpty = wishlistItem.length === 0;
     return (
         <div className='container grid grid-cols-12 items-start gap-6 pt-4 pb-16'>
             <div className='col-span-3'>
@@ -81,30 +82,34 @@ const Wishlist = () => {
                 </div>
             </div>
             <div className='col-span-9 space-y-4'>
-                {wishlistItem.map((item, index) => (
-                    <div key={index} className='flex items-center justify-between gap-6 p-4 border border-gray-200 rounded'>
-                        <div className='w-28 flex-shrink-0'>
-                            <img src={item.imageSrc} alt='' className='w-full' />
-                        </div>
-                        <div className='w-1/3'>
-                            <h2 className='text-gray-800 text-xl font-medium uppercase'>{item.title}</h2>
-                            <p className='text-gray-500 text-sm'>
-                                Availability: <span className={item.stockStatus === 'In Stock' ? 'text-green-600' : 'text-red-600'}>{item.stockStatus}</span>
+                {isWishlistEmpty ? (
+                    <div className="text-gray-600 text-center font-bold">No products added to favorite</div>
+                ) : (
+                    wishlistItem.map((item, index) => (
+                        <div key={index} className='flex items-center justify-between gap-6 p-4 border border-gray-200 rounded'>
+                            <div className='w-28 flex-shrink-0'>
+                                <img src={item.imageSrc} alt='' className='w-full' />
+                            </div>
+                            <div className='w-1/3'>
+                                <h2 className='text-gray-800 text-xl font-medium uppercase'>{item.title}</h2>
+                                <p className='text-gray-500 text-sm'>
+                                    Availability: <span className={item.stockStatus === 'In Stock' ? 'text-green-600' : 'text-red-600'}>{item.stockStatus}</span>
 
-                            </p>
-                        </div>
-                        <div className='text-primary text-lg font-semibold'>
-                            ${item.price}.00
-                        </div>
-                        <Link to="/" className={`px-6 py-2 text-center text-sm text-white border rounded transition uppercase font-medium ${item.stockStatus === 'In Stock' ? 'bg-primary border-primary cursor-pointer hover:bg-transparent hover:text-primary' : 'bg-red-400 border-red-400 cursor-not-allowed'}`}>
-                            Add to Cart
-                        </Link>
-                        <div className='text-gray-600 cursor-pointer hover:text-primary' onClick={() => { dispatch(removeFromWishlist({ index })) }} >
-                            <FaTrashAlt />
-                        </div>
+                                </p>
+                            </div>
+                            <div className='text-primary text-lg font-semibold'>
+                                ${item.price}.00
+                            </div>
+                            <Link to="/" className={`px-6 py-2 text-center text-sm text-white border rounded transition uppercase font-medium ${item.stockStatus === 'In Stock' ? 'bg-primary border-primary cursor-pointer hover:bg-transparent hover:text-primary' : 'bg-red-400 border-red-400 cursor-not-allowed'}`}>
+                                Add to Cart
+                            </Link>
+                            <div className='text-gray-600 cursor-pointer hover:text-primary' onClick={() => { dispatch(removeFromWishlist({ index })) }} >
+                                <FaTrashAlt />
+                            </div>
 
-                    </div>
-                ))}
+                        </div>
+                    ))
+                )}
 
             </div>
         </div>

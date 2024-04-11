@@ -1,22 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFormFilledStatus, updateCustomerDetails } from '../redux/DeliveryDetailSlice';
-import { formFilledStatus } from "../redux/DeliveryDetailSlice"
 
 const DeliveryDetails = ({ onNext }) => {
     const dispatch = useDispatch();
-    const customerDetails = useSelector(state => state.deliveryDetails);
+    const customerDetails = useSelector(state => state.customers.customerDetails);
 
+    // Initialize formDetails state based on Redux state or initial state
     const [formDetails, setFormDetails] = useState({
-        firstName: '',
-        lastName: '',
-        country: '',
-        address: '',
-        city: '',
-        postalCode: '',
-        phoneNumber: '',
-        emailAddress: '',
+        firstName: customerDetails.firstName || '', // Use Redux state if available
+        lastName: customerDetails.lastName || '',
+        country: customerDetails.country || '',
+        address: customerDetails.address || '',
+        city: customerDetails.city || '',
+        postalCode: customerDetails.postalCode || '',
+        phoneNumber: customerDetails.phoneNumber || '',
+        emailAddress: customerDetails.emailAddress || '',
     });
+
+    // Effect to update formDetails when customerDetails changes
+    useEffect(() => {
+        setFormDetails({
+            firstName: customerDetails.firstName || '',
+            lastName: customerDetails.lastName || '',
+            country: customerDetails.country || '',
+            address: customerDetails.address || '',
+            city: customerDetails.city || '',
+            postalCode: customerDetails.postalCode || '',
+            phoneNumber: customerDetails.phoneNumber || '',
+            emailAddress: customerDetails.emailAddress || '',
+        });
+    }, [customerDetails]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;

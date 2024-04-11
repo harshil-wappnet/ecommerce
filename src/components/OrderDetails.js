@@ -2,11 +2,10 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { cartTotal } from '../redux/ProductsSlice';
 import { Link } from 'react-router-dom';
-import { updateTransactionStatus } from '../redux/DeliveryDetailSlice';
+import { updateTransactionStatus, setFormFilledStatus } from '../redux/DeliveryDetailSlice';
 const OrderDetails = () => {
     const cartItems = useSelector(state => state.products.productsAddedToCart);
     const cartTotals = useSelector(cartTotal);
-
     const dispatch = useDispatch();
     const loadScript = (src) => {
         return new Promise((resovle) => {
@@ -60,11 +59,19 @@ const OrderDetails = () => {
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
     };
+
+    const handleUpdateAddress = () => {
+        // Dispatch action to set formFilledStatus to false
+        dispatch(setFormFilledStatus(false));
+    };
     return (
         <div>
             <div className='space-y-4'>
                 {/* Render each cart item */}
-                <h3 className='text-lg font-medium capitalize mb-4 mt-2'>{cartItems.length === 0 ? "Your Cart is Empty!" : "Order Details"}</h3>
+                <div className='flex flex-row justify-between'>
+                    <h3 className='text-lg font-medium capitalize mb-4 mt-2'>{cartItems.length === 0 ? "Your Cart is Empty!" : "Order Details"}</h3>
+                    <button onClick={handleUpdateAddress} className='block px-4 py-3 text-center text-white font-medium bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition'>Update Billing Address</button>
+                </div>
                 {cartItems.map((item, index) => (
                     <div key={index} className='flex items-center gap-6 p-4 border border-gray-200 rounded'>
                         <div className='w-28 flex-shrink-0'>
