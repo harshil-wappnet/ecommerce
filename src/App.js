@@ -3,14 +3,14 @@ import './App.css';
 import Dashboard from './components/Dashboard';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
-import ProductView from './pages/ProductView';
+import ProductView from './components/ProductView';
 import Login from '../src/pages/Login'
 import Account from './components/Account';
-import Cart from './pages/Cart';
+import Cart from './pages/Cart/Cart';
 import Wishlist from './pages/Wishlist';
-import DeliveryDetails from './components/DeliveryDetails';
-import OrderDetails from './components/OrderDetails';
-import PostOrderPage from './components/PostOrderPage';
+import DeliveryDetails from './pages/Cart/DeliveryDetails';
+import OrderDetails from './pages/Cart/OrderDetails';
+import PostOrderPage from './pages/Cart/PostOrderPage';
 function App() {
   return (
     <div className="padding-10">

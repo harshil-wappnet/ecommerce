@@ -59,6 +59,18 @@
   margin-top: auto !important;
 }
 
+.products-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 16px;
+}
+
+.product-item {
+  flex: 0 0 auto;
+  width: 300px; /* Adjust this value as per your design */
+}
+
 .step-item {
   @apply relative flex flex-col justify-center items-center w-36;
 }

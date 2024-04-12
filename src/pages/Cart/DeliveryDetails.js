@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFormFilledStatus, updateCustomerDetails } from '../redux/DeliveryDetailSlice';
+import { setFormFilledStatus, updateCustomerDetails } from '../../redux/DeliveryDetailSlice';
 
 const DeliveryDetails = ({ onNext }) => {
     const dispatch = useDispatch();
