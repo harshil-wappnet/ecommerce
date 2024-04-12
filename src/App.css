@@ -81,3 +81,12 @@
 .active:not(:first-child):before {
   @apply bg-green-600;
 }
+
+@media screen and (min-width: 0px) and (max-width: 767px) {
+  .filter-hidden {
+    display: none;
+  }
+  .padding-10 {
+    padding: 10px;
+  }
+}

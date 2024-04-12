@@ -20,8 +20,8 @@ const Dashboard = () => {
     const wishlistItem = useSelector(state => state.wishlists.productsAddedToWishlist);
     return (
         <>
-            <header className='py-4 shadow-sm lg:bg-white `responsivenavbar ? bg-gray-900 :`'>
-                <div className='container flex items-center justify-between'>
+            <header className='px-2 py-4 shadow-sm lg:bg-white `responsivenavbar ? bg-gray-900 :`'>
+                <div className='md:container flex items-center justify-between'>
                     <Link to="/">
                         <img src={logo} alt="Logo" className='w-32' />
                     </Link>
@@ -103,7 +103,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </nav>
-            <div className="container">
+            <div className="md:container">
                 <div className='text-gray-600 font-medium'><Breadcrumb /></div>
             </div>
             <Outlet />

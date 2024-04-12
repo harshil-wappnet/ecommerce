@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Dashboard from './components/Dashboard';
-import Home from './pages/Home';
-import Shop from './pages/Shop';
+import Home from './pages/Home/Home';
+import Shop from './pages/Shop/Shop';
 import ProductView from './pages/ProductView';
 import Login from '../src/pages/Login'
 import Account from './components/Account';
@@ -11,10 +11,9 @@ import Wishlist from './pages/Wishlist';
 import DeliveryDetails from './components/DeliveryDetails';
 import OrderDetails from './components/OrderDetails';
 import PostOrderPage from './components/PostOrderPage';
-// import RazorpayPayment from './components/RazorpayPayment'
 function App() {
   return (
-    <div className="">
+    <div className="padding-10">
       <Dashboard />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -29,7 +28,6 @@ function App() {
           <Route path='orderdetails' element={<OrderDetails />} />
           <Route path='orderstatus' element={<PostOrderPage />} />
         </Route>
-        {/* <Route path='/RazorpayPayment' element={<RazorpayPayment />} /> */}
       </Routes>
     </div>
   );

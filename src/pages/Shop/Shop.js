@@ -3,12 +3,14 @@ import { RiGridFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
-import Productsdata from '../data/products'
-import { addToWishlist } from '../redux/WishlistSlice';
+import Productsdata from '../../data/products'
+import { addToWishlist } from '../../redux/WishlistSlice';
 import { useDispatch } from 'react-redux';
+import SlideOver from '../../components/SlideOver';
 const Shop = () => {
     const dispatch = useDispatch();
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [isSlideOverOpen, setIsSlideOverOpen] = useState(false);
 
     const handleCategoryChange = (e) => {
         const { value, checked } = e.target;
@@ -30,9 +32,14 @@ const Shop = () => {
             dispatch(addToWishlist({ product }));
         }
     }
+
+
+    const handleSlideOverToggle = () => {
+        setIsSlideOverOpen(!isSlideOverOpen);
+    };
     return (
-        <div className='container grid grid-cols-4 gap-6 pb-16 items-start'>
-            <div className='col-span-1 bg-white px-4 pb-6 shadow rounded'>
+        <div className='md:container grid grid-cols-4 gap-6 pb-16 items-start'>
+            <div className='sm:hidden md:block col-span-1 bg-white px-4 pb-6 shadow rounded filter-hidden'>
                 <div className='divide-y divide-gray-200 space-y-5'>
                     <div>
                         <h3 className='text-xl text-gray-800 mb-3 uppercase font-medium'>Categories</h3>
@@ -145,55 +152,68 @@ const Shop = () => {
                 </div>
             </div>
 
-            <div className='col-span-3 '>
-                <div className='flex items-center mb-4'>
+            <div className='col-span-4 md:col-span-3'>
+                <div className='flex items-center mb-4 justify-between'>
                     <select className='w-44 text-sm text-gray-600 px-4 py-3 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary '>
                         <option>Default Sorting</option>
                         <option>Price low-high</option>
                         <option>Price high-low</option>
                         <option>Latest Product</option>
                     </select>
-                    <div className='ml-auto border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer'>
-                        <RiGridFill className='text-xl' />
+                    <div>
+                        <div
+                            className='ml-auto border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer mr-3 md:hidden'
+                            onClick={handleSlideOverToggle}
+                        >
+                            <RiGridFill className='text-xl' />
+                        </div>
+                        {isSlideOverOpen && (
+                            <SlideOver
+                                handleCategoryChange={handleCategoryChange}
+                                selectedCategories={selectedCategories}
+                                onClose={() => setIsSlideOverOpen(false)}
+                            />
+                        )}
                     </div>
                 </div>
-
-                <div className='grid grid-cols-3 gap-6'>
-                    {filteredProducts.map((product, index) => (
-                        <div key={index} className='bg-white shadow rounded overflow-hidden group flex flex-col'>
-                            {/* Product details */}
-                            <div className='relative flex-shrink-0'>
-                                <img src={product.imageSrc} alt='' className='w-full' />
-                                <div className='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
-                                    <button onClick={() => handleAddToWishlist(product.id)} className='text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition'>
-                                        <CiHeart />
-                                    </button>
-                                </div>
-                            </div>
-                            <div className='pt-4 pb-3 px-4 flex flex-col flex-grow'>
-                                <Link to='/'>
-                                    <h4 className='uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition overflow-hidden'>
-                                        {product.title.length > 30 ? `${product.title.substring(0, 30)}...` : product.title}
-                                    </h4>
-                                </Link>
-                                <div className='flex justify-between items-start mb-1'>
-                                    <div>
-                                        <p className='text-xl text-primary font-semibold '>${product.price}.00</p>
-                                        <p className='text-sm text-gray-400 line-through'>${product.discountPrice}.00</p>
-                                    </div>
-                                    <div className='flex gap-1 text-sm text-yellow-400'>
-                                        <span><FaStar /></span>
-                                        <span><FaStar /></span>
-                                        <span><FaStar /></span>
-                                        <span><FaStar /></span>
-                                        <span><FaStar /></span>
-                                        {/* You can include the rating count here */}
+                <div className='justify-center items-center flex'>
+                    <div className='grid sm:grid-cols-2 md:grid-cols-3  gap-6 md:w-full'>
+                        {filteredProducts.map((product, index) => (
+                            <div key={index} className='bg-white shadow rounded overflow-hidden group flex flex-col'>
+                                {/* Product details */}
+                                <div className='relative flex-shrink-0'>
+                                    <img src={product.imageSrc} alt='' className='w-full' />
+                                    <div className='absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition'>
+                                        <button onClick={() => handleAddToWishlist(product.id)} className='text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition'>
+                                            <CiHeart />
+                                        </button>
                                     </div>
                                 </div>
-                                <Link to={`/product-view/${product.id}`} className='self-start w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition mt-auto'>View Product</Link>
+                                <div className='pt-4 pb-3 px-4 flex flex-col flex-grow'>
+                                    <Link to='/'>
+                                        <h4 className='uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition overflow-hidden'>
+                                            {product.title.length > 30 ? `${product.title.substring(0, 30)}...` : product.title}
+                                        </h4>
+                                    </Link>
+                                    <div className='flex justify-between items-start mb-1'>
+                                        <div>
+                                            <p className='text-xl text-primary font-semibold '>${product.price}.00</p>
+                                            <p className='text-sm text-gray-400 line-through'>${product.discountPrice}.00</p>
+                                        </div>
+                                        <div className='flex gap-1 text-sm text-yellow-400'>
+                                            <span><FaStar /></span>
+                                            <span><FaStar /></span>
+                                            <span><FaStar /></span>
+                                            <span><FaStar /></span>
+                                            <span><FaStar /></span>
+                                            {/* You can include the rating count here */}
+                                        </div>
+                                    </div>
+                                    <Link to={`/product-view/${product.id}`} className='self-start w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition mt-auto'>View Product</Link>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>
