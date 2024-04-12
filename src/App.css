@@ -59,6 +59,36 @@
   margin-top: auto !important;
 }
 
+.products-container {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 16px;
+}
+
+.product-item {
+  flex: 0 0 auto;
+  width: 300px; /* Adjust this value as per your design */
+}
+
+@media (max-width: 768px) {
+  .products-container {
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Your existing styles for large screens */
+  .products-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .product-item {
+    flex: none;
+    width: auto;
+  }
+}
+
 .step-item {
   @apply relative flex flex-col justify-center items-center w-36;
 }
@@ -80,4 +110,13 @@
 .complete:not(:first-child):before,
 .active:not(:first-child):before {
   @apply bg-green-600;
+}
+
+@media screen and (min-width: 0px) and (max-width: 767px) {
+  .filter-hidden {
+    display: none;
+  }
+  .padding-10 {
+    padding: 10px;
+  }
 }

@@ -11,6 +11,7 @@ const Productsdata = [
     discountPrice: 55.00,
     stockStatus: "In Stock",
     category: "casual",
+    brand: "blissta",
   },
   {
     id: "1",
@@ -20,6 +21,7 @@ const Productsdata = [
     discountPrice: 20.00,
     stockStatus: "Out of Stock",
     category: "casual",
+    brand: "aarrah",
   },
   {
     id: "2",
@@ -29,6 +31,7 @@ const Productsdata = [
     discountPrice: 35.00,
     stockStatus: "In Stock",
     category: "universal",
+    brand: "blissta",
   },
   {
     id: "3",
@@ -38,6 +41,7 @@ const Productsdata = [
     discountPrice: 75.00,
     stockStatus: "Out of Stock",
     category: "work",
+    brand: "anaita",
   }
 ]
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import Stepper from '../components/Stepper';
+import Stepper from '../../components/Stepper';
 const Cart = () => {
     const formFilledStatus = useSelector(state => state?.customers?.formFilledStatus);
     const [activeStep, setActiveStep] = useState(1);

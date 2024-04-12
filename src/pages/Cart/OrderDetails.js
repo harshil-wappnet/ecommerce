@@ -1,9 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { cartTotal } from '../redux/ProductsSlice';
+import { cartTotal } from '../../redux/ProductsSlice';
 import { Link } from 'react-router-dom';
-import { updateTransactionStatus, setFormFilledStatus } from '../redux/DeliveryDetailSlice';
-import { removeFromCart } from '../redux/ProductsSlice';
+import { updateTransactionStatus, setFormFilledStatus } from '../../redux/DeliveryDetailSlice';
+import { removeFromCart } from '../../redux/ProductsSlice';
 const OrderDetails = () => {
     const cartItems = useSelector(state => state.products.productsAddedToCart);
     const cartTotals = useSelector(cartTotal);

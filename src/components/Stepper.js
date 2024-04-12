@@ -4,16 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../redux/ProductsSlice';
 import { resetDeliverydetails } from '../redux/DeliveryDetailSlice';
 import { resetWishlist } from '../redux/WishlistSlice';
-import DeliveryDetails from '../components/DeliveryDetails';
-import OrderDetails from '../components/OrderDetails';
-import PostOrderPage from '../components/PostOrderPage';
-import { cartTotal } from '../redux/ProductsSlice';
+import DeliveryDetails from '../pages/Cart/DeliveryDetails';
+import OrderDetails from '../pages/Cart/OrderDetails';
+import PostOrderPage from '../pages/Cart/PostOrderPage';
 
 const Stepper = () => {
     const steps = ["1", "2", "3"];
     const [currentStep, setCurrentStep] = useState(1);
     const [complete, setComplete] = useState(false);
-    const cartTotals = useSelector(cartTotal);
     const transactionStatus = useSelector(state => state.customers.transactionStatus)
     const dispatch = useDispatch();
     const formFilledStatus = useSelector(state => state?.customers?.formFilledStatus);

@@ -9,7 +9,7 @@ import { FaHeart } from "react-icons/fa";
 import { TfiFacebook } from "react-icons/tfi";
 import { FaTwitter } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
-import Products from '../components/Products';
+import Products from './Products';
 import Productsdata from '../data/products';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -57,7 +57,7 @@ const ProductView = () => {
     };
     return (
         <>
-            <div className='container grid grid-cols-2 gap-6'>
+            <div className='container grid sm:grid-cols-2 gap-6'>
                 <div>
                     <img src={product.imageSrc} alt='outfit-1' className='w-full h-96' />
                     <div className='grid grid-cols-5 gap-4 mt-4'>
@@ -156,11 +156,11 @@ const ProductView = () => {
                         </div>
                     </div>
 
-                    <div className='flex gap-3 border-b border-gray-200 pb-5 mt-6'>
-                        <button onClick={() => handleAddToCart(product)} className="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition ">
+                    <div className='flex flex-col md:flex-row gap-3 border-b border-gray-200 pb-5 mt-6'>
+                        <button onClick={() => handleAddToCart(product)} className="bg-primary border justify-center border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition ">
                             <FaShoppingCart />Add to Cart
                         </button>
-                        <button to="/" onClick={() => handleAddToWishlist(product.id)} className="border border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2  hover:text-primary transition ">
+                        <button to="/" onClick={() => handleAddToWishlist(product.id)} className="border justify-center border-gray-300 text-gray-600 px-8 py-2 font-medium rounded uppercase flex items-center gap-2  hover:text-primary transition ">
                             <FaHeart />WishList
                         </button>
                     </div>
@@ -180,7 +180,7 @@ const ProductView = () => {
             </div>
             <div className='container pb-16'>
                 <h3 className='border-b border-gray-200 text-gray-800 pb-3 font-medium'>Product Details</h3>
-                <div className='w-3/5 pt-3'>
+                <div className='md:w-3/5 pt-3'>
                     <div className='text-gray-600 space-y-3'>
                         <p>It's really quick! We strive to deliver all our orders / products in the fastest time possible. Depending upon your address, the delivery time may vary between 2 - 9 working days. That still won't stop us from trying to get you your order faster. On each product's display page, you can enter your location's pin code to check when you can expect to receive the delivery.</p>
                         <p>It's really quick! We strive to deliver all our orders / products in the fastest time possible. Depending upon your address, the delivery time may vary between 2 - 9 working days. That still won't stop us from trying to get you your order faster. On each product's display page, you can enter your location's pin code to check when you can expect to receive the delivery.</p>

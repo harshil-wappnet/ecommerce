@@ -45,7 +45,7 @@ const Breadcrumb = () => {
     }
 
     return (
-        <div className="container py-4 flex items-center gap-3">
+        <div className="md:container py-4 flex items-center gap-3">
             <Link to="/" className='text-primary text-base'><MdHome /></Link>
             <span className='text-sm text-gray-400'>
                 <FaAngleRight />
