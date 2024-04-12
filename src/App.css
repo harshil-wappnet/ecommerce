@@ -61,7 +61,6 @@
 
 .products-container {
   display: flex;
-  overflow-x: auto;
   gap: 20px;
   padding-bottom: 16px;
 }
@@ -69,6 +68,25 @@
 .product-item {
   flex: 0 0 auto;
   width: 300px; /* Adjust this value as per your design */
+}
+
+@media (max-width: 768px) {
+  .products-container {
+    overflow-x: auto;
+  }
+}
+
+@media (min-width: 769px) {
+  /* Your existing styles for large screens */
+  .products-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .product-item {
+    flex: none;
+    width: auto;
+  }
 }
 
 .step-item {

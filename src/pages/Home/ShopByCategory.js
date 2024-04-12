@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import kurti1 from '../../assets/images/kurti1.webp';
 import cc from '../../assets/images/cc.webp'
 import sareee from '../../assets/images/sareee.avif'
-import { FaSearch } from "react-icons/fa";
 import SearchComponent from '../../components/SearchComponent';
 const ShopByCategory = () => {
     return (
@@ -11,11 +10,6 @@ const ShopByCategory = () => {
             <div className='flex justify-between mb-5'>
                 <h2 className='text-xl sm:text-2xl md:text-3xl font-medium text-gray-800 uppercase flex items-center'>Shop By Category</h2>
                 <div className='w-full max-w-xl relative flex justify-end'>
-                    {/* <span className='absolute text-lg text-gray-400' style={{ top: "50%", left: "2%", transform: "translate(-2%, -50%" }}>
-                        <FaSearch />
-                    </span>
-                    <input type='text' className='w-full border border-primary border-r-0 pl-8 py-3 pr-3 rounded-l-md focus:outline-none' placeholder='Search here' />
-                    <button className='bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition'>Search</button> */}
                     <SearchComponent />
                 </div>
             </div>
