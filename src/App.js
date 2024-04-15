@@ -4,10 +4,10 @@ import Dashboard from './components/Dashboard';
 import Home from './pages/Home/Home';
 import Shop from './pages/Shop/Shop';
 import ProductView from './components/ProductView';
-import Login from '../src/pages/Login'
+import Login from '../src/pages/auth/Login'
 import Account from './components/Account';
 import Cart from './pages/Cart/Cart';
-import Wishlist from './pages/Wishlist';
+import Wishlist from '../src/pages/WishList/Wishlist';
 import DeliveryDetails from './pages/Cart/DeliveryDetails';
 import OrderDetails from './pages/Cart/OrderDetails';
 import PostOrderPage from './pages/Cart/PostOrderPage';

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import dress from '../assets/images/dress.avif'
+import dress from '../../assets/images/dress.avif'
 import { FaRegAddressCard } from "react-icons/fa";
 import { FaTrashAlt } from "react-icons/fa";
 import { useSelector } from 'react-redux';
-import { removeFromWishlist } from '../redux/WishlistSlice'
+import { removeFromWishlist } from '../../redux/WishlistSlice'
 import { useDispatch } from 'react-redux';
 const Wishlist = () => {
     const dispatch = useDispatch();
